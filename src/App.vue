@@ -1,13 +1,18 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <hr-header></hr-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Header from '@/components/Header'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    'hr-header': Header
+  }
 }
 </script>
 
@@ -16,8 +21,20 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 50px;
+}
+body {
+  padding: 0px;
+  margin: 0px;
+  background-color: #f8f8f8;
+}
+.hr-subheader {
+  background-color: #4D73E3;
+  height: 150px;
+  line-height: 140px;
+  color: #fff;
+  width: 100%;
+  padding: 0px 50px;
 }
 </style>
