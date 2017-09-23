@@ -1,11 +1,13 @@
 <template>
-  <div class="hr-subheader">
-    <div class="page-subheader">
-      Employee Directory
+  <div class="home-container">
+    <div class="hr-subheader">
+      <div class="page-subheader">
+        Employee Directory
+      </div>
     </div>
-  </div>
-  <div class="employee-directory-main">
+    <div class="employee-directory-main">
 
+    </div>
   </div>
 </template>
 
