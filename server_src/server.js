@@ -4,7 +4,7 @@ var port = process.env.PORT || 3000;
 var redis = require("redis");
 var bluebird = require('bluebird');
 
-var redisConnection = {ip: "104.198.137.7", port: "6379"};
+var redisConnection = {ip: "127.0.0.1", port: "6379"};
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
