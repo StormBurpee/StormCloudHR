@@ -13,6 +13,7 @@ var db = mysql.createConnection({
   database: "stormcloudhr_default"
 });
 
+console.log("Starting server initalization.");
 db.connect((err) => {
   if(err)
     throw err;

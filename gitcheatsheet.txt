@@ -1,5 +1,5 @@
 When making generic changes
-  git add -A 
+  git add -A
   git commit -m "Describe change"
   git push origin master
 
@@ -29,3 +29,7 @@ When working on a new feature create a new branch
 
   --delete the feature branch
   git branch -d feature_name
+
+  --------
+  On the server after a git pull
+  npm run build && rm -Rf ../html/ && mkdir ../html && cp dist/* ../html/ -Rf
