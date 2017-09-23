@@ -24,6 +24,7 @@ export default {
   color: #2c3e50;
   margin-top: 50px;
   max-width: 100vw;
+  overflow-x: hidden;
 }
 body {
   padding: 0px;
