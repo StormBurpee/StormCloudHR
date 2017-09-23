@@ -40,8 +40,11 @@ router.get('/', function(request, response) {
   });
 });
 
-router.get('/employees', function(request, response) {
-  db.query("SELECT * FROM employees", (err, rows) => {
+router.get('/employees/:belongsto', function(request, response) {
+  let belongs = request.params.belongsto;
+  if(belongs == null)
+    response.json({message: "Employee List", rows: null});
+  db.query("SELECT * FROM employees WHERE belongs_to="+belongs, (err, rows) => {
     if(err)
       throw err;
 
