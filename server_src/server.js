@@ -7,7 +7,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 
 var Model = require('./api/components/model');
-var Employee = require('./api/components/Employee')
+var Employee = require('./api/components/employees/Employee')
 
 var db = mysql.createConnection({
   host: "104.197.10.100",
