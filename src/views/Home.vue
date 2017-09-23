@@ -4,13 +4,16 @@
       Employee Directory
     </div>
   </div>
+  <div class="employee-directory-main">
+
+  </div>
 </template>
 
 <script>
 export default {
   name: 'home',
   title () {
-    return 'LoungeLobby - Home'
+    return 'StormCellHR - Employee Directory'
   }
 }
 </script>
