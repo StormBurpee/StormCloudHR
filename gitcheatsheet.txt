@@ -19,7 +19,7 @@ When working on a new feature create a new branch
 
   --merge the branches
   git merge feature_name
-  git push
+  git push origin master
 
   --delete the feature branch
   git branch -d feature_name
