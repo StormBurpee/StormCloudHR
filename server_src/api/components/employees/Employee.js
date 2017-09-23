@@ -7,8 +7,9 @@ class Employee extends Model {
 
   getEmployees(company) {
     let db = this.db;
+    let rclient = this.rclient;
     return new Promise((resolve, reject) => {
-      this.rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
+      rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
         if(object != null && object.employees != null) {
           console.log("Received Employees from Redis Cache");
           resolve({rows: object.employees, redis: true});
@@ -18,10 +19,10 @@ class Employee extends Model {
             if(err)
               throw err;
 
-            this.rclient.hmset("stormcellhr_employees_"+company, {
+            rclient.hmset("stormcellhr_employees_"+company, {
               employees: rows
             });
-            this.rclient.expire("stormcellhr_employees_"+company, 30);
+            rclient.expire("stormcellhr_employees_"+company, 30);
             resolve({rows: rows, redis: false});
           });
         }
