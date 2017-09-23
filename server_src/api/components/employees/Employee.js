@@ -12,7 +12,7 @@ class Employee extends Model {
       rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
         if(object != null && object.employees != null) {
           console.log("Received Employees from Redis Cache");
-          resolve(object.employees);
+          resolve(JSON.stringify(object.employees));
         } else {
           db.query("SELECT * FROM employees WHERE belongs_to="+company, (err, rows) => {
             console.log("Sending Request for employees to DB.");
@@ -22,7 +22,7 @@ class Employee extends Model {
             rclient.hmset("stormcellhr_employees_"+company, {
               employees: rows
             });
-            rclient.expire("stormcellhr_employees_"+company, 30);
+            rclient.expire("stormcellhr_employees_"+company, 120);
             resolve(rows);
           });
         }
