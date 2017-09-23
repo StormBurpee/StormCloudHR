@@ -8,7 +8,7 @@ class Employee extends Model {
   getEmployees(company, db) {
     return new Promise((resolve, reject) => {
       this.rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
-        if(object.employees != null) {
+        if(object != null && object.employees != null) {
           console.log("Received Employees from Redis Cache");
           resolve({rows: object.employees, redis: true});
         } else {
