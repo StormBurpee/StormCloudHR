@@ -6,6 +6,7 @@ class Employee extends Model {
   }
 
   getEmployees(company, db) {
+    console.log(company, db);
     return new Promise((resolve, reject) => {
       this.rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
         if(object != null && object.employees != null) {
