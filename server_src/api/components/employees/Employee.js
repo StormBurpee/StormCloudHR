@@ -20,9 +20,9 @@ class Employee extends Model {
             if(err)
               throw err;
 
-            rclient.hmset("stormcellhr_employees_"+company, JSON.stringify({
-              employees: rows
-            }));
+            rclient.hmset("stormcellhr_employees_"+company, {
+              employees: JSON.stringify(rows)
+            });
             rclient.expire("stormcellhr_employees_"+company, 120);
             resolve(rows);
           });
