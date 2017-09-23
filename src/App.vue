@@ -23,11 +23,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 50px;
+  max-width: 100vw;
 }
 body {
   padding: 0px;
   margin: 0px;
   background-color: #f8f8f8;
+  max-width: 100vw;
 }
 .hr-subheader {
   background-color: #4D73E3;

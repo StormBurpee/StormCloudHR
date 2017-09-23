@@ -1,0 +1,25 @@
+When working on a new feature create a new branch
+  git branch feature_name
+  --checkout the feature
+  git checkout feature_name
+  -- when you write code, ensure we are commiting the code reguarly
+    git add -A
+    git commit -m "Message of what has been done"
+
+  --When finished making changes to this feature, fetch changes from remote
+  git fetch
+  --Rebase into master
+  git rebase -i origin/master
+    (when rebasing it will open an interactive shell, before every single commit at the letter 's' except
+      for the first commit - this will squash all the commits into the first one.)
+
+  --checkout and pull from master to init merge
+  git checkout master
+  git pull
+
+  --merge the branches
+  git merge feature_name
+  git push
+
+  --delete the feature branch
+  git branch -d feature_name
