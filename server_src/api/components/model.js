@@ -1,6 +1,7 @@
 class Model {
-  constructor(rclient) {
+  constructor(rclient, db) {
     this.rclient = rclient;
+    this.db = db;
   }
 }
 

@@ -1,12 +1,12 @@
 var Model = require('../model');
 
 class Employee extends Model {
-  constructor(rclient) {
-    super(rclient);
+  constructor(rclient, db) {
+    super(rclient, db);
   }
 
-  getEmployees(company, db) {
-    console.log(company, db);
+  getEmployees(company) {
+    let db = this.db;
     return new Promise((resolve, reject) => {
       this.rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
         if(object != null && object.employees != null) {
