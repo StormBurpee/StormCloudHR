@@ -1,3 +1,9 @@
+When making generic changes
+  git add -A 
+  git commit -m "Describe change"
+  git push origin master
+
+--------
 When working on a new feature create a new branch
   git branch feature_name
   --checkout the feature
