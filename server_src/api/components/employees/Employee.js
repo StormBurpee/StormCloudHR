@@ -7,12 +7,12 @@ class Employee extends Model {
 
   getEmployees(company, db) {
     return new Promise((resolve, reject) => {
-      this.rclient.hgetall('stormcellhr_employees_'+belongs, function(err, object) {
+      this.rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
         if(object.employees != null) {
           console.log("Received Employees from Redis Cache");
           resolve({rows: object.employees, redis: true});
         } else {
-          db.query("SELECT * FROM employees WHERE belongs_to="+belongs, (err, rows) => {
+          db.query("SELECT * FROM employees WHERE company_to="+company, (err, rows) => {
             console.log("Sending Request for employees to DB.");
             if(err)
               throw err;
