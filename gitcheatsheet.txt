@@ -15,7 +15,7 @@ When working on a new feature create a new branch
 
   --checkout and pull from master to init merge
   git checkout master
-  git pull
+  git pull origin master
 
   --merge the branches
   git merge feature_name
