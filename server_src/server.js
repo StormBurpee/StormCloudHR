@@ -6,6 +6,9 @@ var mysql     = require('mysql');
 var app = express();
 var port = process.env.PORT || 3000;
 
+var Model = require('./components/model');
+var Employee = require('./components/Employee')
+
 var db = mysql.createConnection({
   host: "104.197.10.100",
   user: "stormcloudhr",
@@ -42,13 +45,14 @@ router.get('/', function(request, response) {
 
 router.get('/employees/:belongsto', function(request, response) {
   let belongs = request.params.belongsto;
-  if(belongs == null)
+  if(belongs == null) {
     response.json({message: "Employee List", rows: null});
-  db.query("SELECT * FROM employees WHERE belongs_to="+belongs, (err, rows) => {
-    if(err)
-      throw err;
+    return;
+  }
 
-    response.json({message: "Employee List", rows: rows});
+  let employee = new Employee(rclient, db);
+  employee.getEmployees(belongs).then(resp => {
+    response.json({message: "Employee List", rows: resp});
   });
 });
 
