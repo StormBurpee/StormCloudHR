@@ -38,7 +38,16 @@ router.get('/', function(request, response) {
   rclient.hgetall('StormCellHR', function(err, object) {
     response.json({message: "StormCellHR API", available_routes: "NA", redis: object});
   });
-})
+});
+
+router.get('/employees', function(request, response) {
+  db.query("SELECT * FROM employees", (err, rows) => {
+    if(err)
+      throw err;
+
+    response.json({message: "Employee List", rows: rows});
+  });
+});
 
 app.use('/', router);
 app.listen(port);
