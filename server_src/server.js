@@ -52,7 +52,7 @@ router.get('/employees/:belongsto', function(request, response) {
 
   let employee = new Employee(rclient, db);
   employee.getEmployees(belongs).then(resp => {
-    response.json({message: "Employee List", rows: resp});
+    response.json({message: "Employee List", employees: resp});
   });
 });
 
