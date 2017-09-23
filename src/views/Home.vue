@@ -6,16 +6,21 @@
       </div>
     </div>
     <div class="employee-directory-main">
-
+      <employee-directory></employee-directory>
     </div>
   </div>
 </template>
 
 <script>
+import EmployeeDirectory from '@/components/Home/EmployeeDirectory'
+
 export default {
   name: 'home',
   title () {
     return 'StormCellHR - Employee Directory'
+  },
+  components: {
+    'employee-directory': EmployeeDirectory
   }
 }
 </script>
