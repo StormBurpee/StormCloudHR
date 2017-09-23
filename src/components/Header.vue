@@ -3,7 +3,7 @@
     <ul class="pull-left">
       <li class="page-header">StormCellHR</li>
       <li class="page-link"><router-link to="/">Employees</router-link></li>
-      <li class="page-link"><router-link to="#">Time Off</router-link></li>
+      <li class="page-link"><router-link to="/time-off">Time Off</router-link></li>
       <li class="page-link"><router-link to="#">Performance</router-link></li>
       <li class="page-link"><router-link to="#">Training</router-link></li>
       <li class="page-link"><router-link to="#">Reports</router-link></li>
