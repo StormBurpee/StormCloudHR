@@ -78,9 +78,9 @@ export default {
         this.items.push({
           last: employee.last,
           first: employee.first,
-          title: employee.title,
-          location: employee.title,
-          status: employee.status
+          title: employee.jobdetails.title,
+          location: employee.jobdetails.location,
+          status: employee.jobdetails.status
         })
       }
     })
