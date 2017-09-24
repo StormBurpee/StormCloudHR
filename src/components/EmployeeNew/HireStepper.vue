@@ -1,4 +1,5 @@
 <template>
+  <v-card class="directory">
   <v-stepper v-model="e6" vertical>
     <v-stepper-step step="1" v-bind:complete="e6 > 1">
       Personal Details
@@ -10,6 +11,14 @@
       label="First Name"
       v-model="fname"
       :error-messages="fnameErrors"
+      @input="$v.name.$touch()"
+      @blur="$v.name.$touch()"
+      required
+    ></v-text-field>
+    <v-text-field
+      label="Middle Name"
+      v-model="mname"
+      :error-messages="mnameErrors"
       @input="$v.name.$touch()"
       @blur="$v.name.$touch()"
       required
@@ -38,15 +47,6 @@
       @blur="$v.select.$touch()"
       required
     ></v-text-field>
-    <v-select
-          v-bind:items="items"
-          v-model="select"
-          label="Gender"
-          :error-messages="errors.collect('select')"
-          v-validate="'required'"
-          data-vv-name="select"
-          required
-    ></v-select>
     <v-checkbox
       label="Self Service?"
       v-model="checkbox"
@@ -79,6 +79,7 @@
       <v-btn flat>Cancel</v-btn>
     </v-stepper-content>
   </v-stepper>
+  </v-card>
 </template>
 
 <script>
@@ -89,4 +90,8 @@ export default {
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped lang='scss'>
+.directory {
+  margin: 0px 25px;
+  margin-top: 25px;
+}
 </style>
