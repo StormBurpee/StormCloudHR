@@ -18,11 +18,22 @@ class Employee extends Model {
     this.emc2_name = "";
     this.emc2_relationship = "";
     this.emc2_contact = "";
+    this.jobdetails = {};
+  }
 
-    // Job Details
-    this.title = "Title Placeholder";
-    this.location = "Location Placeholder";
-    this.status = "Full Time";
+  getEmploymentType(employment_type) {
+    let types = ["Full Time", "Part Time", "Casual", "Temp", "Intern", "Volunteer", "Contactor"];
+    return types[employment_type];
+  }
+
+  getPayType(pay_type) {
+    let types = ["Year", "Quarter", "Month", "Fortnight", "Week", "Day", "Hour"];
+    return types[pay_type];
+  }
+
+  getPayFrequency(pay_frequency) {
+    let types = ["Annually", "Monthly", "Semimonthly", "BiWeekly", "Weekly", "Daily"];
+    return types[pay_frequency];
   }
 
   newReturnEmployee(first, middle, last, gender, birthday, tfn, account_name, account_bsb, account_number, emc1_name, emc1_relationship, emc1_contact, emc2_name, emc2_relationship, emc2_contact, jobdetails) {
@@ -44,9 +55,7 @@ class Employee extends Model {
     newEmployee.emc2_contact = emc2_contact;
 
     // Job Details
-    newEmployee.title = "Title Placeholder";
-    newEmployee.location = "Location Placeholder";
-    newEmployee.status = "Full Time";
+    newEmployee.jobdetails = jobdetails;
 
     return newEmployee;
   }
@@ -94,8 +103,28 @@ class Employee extends Model {
 
             for(var i = 0; i < rows.length; i++) {
               let row = rows[i];
-              let rEmp = employee.newReturnEmployee(row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, null);
-              returnEmployees.push( rEmp );
+              let jobdetails = {};
+              db.query("SELECT * FROM job_details WHERE employee_id="+row.employee_id, (err, rows) => {
+                for(var j = 0; j < rows.length; j++) {
+                  let job = rows[j];
+                  jobdetails = {
+                    title: job.job_title,
+                    location: "Propagate("+job.location_id+")",
+                    department: "Propagate("+job.department_id+")",
+                    status: getEmploymentType(job.employment_type),
+                    manager: "Propagate("+job.manager_id+")",
+                    pay_rate: job.pay_rate,
+                    pay_currency: job.pay_currency,
+                    pay_type: getPayType(job.pay_type),
+                    pay_frequency: getPayFrequency(job.pay_frequency),
+                    commision: job.commision,
+                    bonus_structure: job.bonus_structure
+                  }
+                }
+                let rEmp = employee.newReturnEmployee(row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails);
+                returnEmployees.push( rEmp );
+              });
+
             }
             rclient.hmset("stormcellhr_employees_"+company, {
               employees: JSON.stringify(returnEmployees)
