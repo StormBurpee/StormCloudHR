@@ -73,6 +73,7 @@ export default {
     .then(response => {
       // JSON responses are automatically parsed.
       this.items = response.data.employees
+      console.log(this.items)
     })
     .catch(e => {
       console.log(e)
