@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from '@/views/Home'
 import TimeOff from '@/views/TimeOff'
 import EmployeeNew from '@/views/EmployeeNew'
+import Employee from '@/views/Employee'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/employees/new',
       name: 'New Employee',
       component: EmployeeNew
+    },
+    {
+      path: '/employee/:id',
+      name: 'Employee',
+      component: Employee
     },
     {
       path: '/time-off',

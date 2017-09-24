@@ -60,6 +60,14 @@ router.get('/employees/:belongsto', function(request, response) {
   });
 });
 
+router.post('/employees/new', function(request, response) {
+  if(request.body.selfservice) {
+
+  } else {
+    
+  }
+});
+
 app.use(cors(corsOptions));
 app.use('/', router);
 app.listen(port);
