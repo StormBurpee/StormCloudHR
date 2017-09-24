@@ -6,14 +6,87 @@
       </div>
     </div>
     <div class="employee-directory-main">
-      <employee-directory></employee-directory>
+
+      <v-tabs dark v-model="active">
+        <v-tabs-bar class="our-primary">
+          <v-tabs-item
+            v-for="tab in tabs"
+            :key="tab"
+            :href="'#' + tab"
+            ripple
+          >
+            {{ tab }}
+          </v-tabs-item>
+          <v-tabs-slider class="yellow"></v-tabs-slider>
+        </v-tabs-bar>
+        <v-tabs-items>
+          <v-tabs-content
+            key="Personal"
+            id="Personal"
+          >
+            <employee-personal></employee-personal>
+          </v-tabs-content>
+          <v-tabs-content
+            key="Job"
+            id="Job"
+          >
+            <v-card flat>
+              <v-card-text>Job</v-card-text>
+            </v-card>
+          </v-tabs-content>
+          <v-tabs-content
+            key="Time Off"
+            id="Time Off"
+          >
+            <v-card flat>
+              <v-card-text>TimeOff</v-card-text>
+            </v-card>
+          </v-tabs-content>
+          <v-tabs-content
+            key="Banking"
+            id="Banking"
+          >
+            <v-card flat>
+              <v-card-text>Banking</v-card-text>
+            </v-card>
+          </v-tabs-content>
+          <v-tabs-content
+            key="Emergency"
+            id="Emergency"
+          >
+            <v-card flat>
+              <v-card-text>Emergency</v-card-text>
+            </v-card>
+          </v-tabs-content>
+          <v-tabs-content
+            key="Notes"
+            id="Notes"
+          >
+            <v-card flat>
+              <v-card-text>Notes</v-card-text>
+            </v-card>
+          </v-tabs-content>
+        </v-tabs-items>
+      </v-tabs>
+
     </div>
   </div>
 </template>
 
 <script>
+import Personal from '@/components/Employee/Personal'
+
 export default {
-  name: 'employee'
+  name: 'employee',
+  data () {
+    return {
+      tabs: ['Personal', 'Job', 'Time Off', 'Banking', 'Emergency', 'Notes'],
+      active: null
+    }
+  },
+  components: {
+    'employee-personal': Personal
+  }
 }
 </script>
 
