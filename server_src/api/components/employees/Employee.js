@@ -119,16 +119,16 @@ class Employee extends Model {
                     bonus_structure: job.bonus_structure
                   }
                 }
-                console.log(jobdetails)
                 let rEmp = employee.newReturnEmployee(row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails);
                 returnEmployees.push( rEmp );
               });
-
             }
+            console.log(returnEmployees.length);
             rclient.hmset("stormcellhr_employees_"+company, {
               employees: JSON.stringify(returnEmployees)
             });
             rclient.expire("stormcellhr_employees_"+company, 120);
+            console.log("Request Sent");
             resolve(returnEmployees);
           });
         }
