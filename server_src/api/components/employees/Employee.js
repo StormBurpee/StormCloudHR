@@ -2,7 +2,8 @@ var Model = require('../model');
 
 class Employee extends Model {
   constructor(rclient, db) {
-    super(rclient, db);newEmployee.first = first;
+    super(rclient, db);
+    this.first = "";
     this.middle = "";
     this.last = "";
     this.gender = "";
