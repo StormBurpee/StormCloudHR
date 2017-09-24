@@ -83,7 +83,7 @@ class Employee extends Model {
       rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
         if(object != null && object.employees != null) {
           console.log("Received Employees from Redis Cache");
-          resolve(JSON.parse(object));
+          resolve(JSON.parse(object.employees));
         } else {
           db.query("SELECT * FROM employees WHERE belongs_to="+company, (err, rows) => {
             console.log("Sending Request for employees to DB.");
