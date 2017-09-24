@@ -60,11 +60,25 @@ router.get('/employees/:belongsto', function(request, response) {
   });
 });
 
+router.get('/employee/:id', function(request, response) {
+  let id = request.params.id;
+  if(id == null) {
+    response.json({message: "Employee", employee: null});
+    return;
+  }
+
+  let employee = new Employee(rclient, db);
+  employee.getEmployee(id).then(resp => {
+    response.json({message: "Employee", employee: resp});
+    return response;
+  });
+});
+
 router.post('/employees/new', function(request, response) {
   if(request.body.selfservice) {
 
   } else {
-    
+
   }
 });
 
