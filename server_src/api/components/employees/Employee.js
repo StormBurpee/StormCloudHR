@@ -48,7 +48,7 @@ class Employee extends Model {
     newEmployee.location = "Location Placeholder";
     newEmployee.status = "Full Time";
 
-    console.log(JSON.stringify(newEmployee));
+    console.log(newEmployee, newEmployee.toJSON);
     return JSON.stringify(newEmployee);
   }
 
@@ -80,7 +80,7 @@ class Employee extends Model {
     let rclient = this.rclient;
     let employee = this;
     return new Promise((resolve, reject) => {
-      rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
+      rclient.hgetall('stormcellhr_employeesd_'+company, function(err, object) {
         if(object != null && object.employees != null) {
           console.log("Received Employees from Redis Cache");
           resolve(employee.newReturnEmployee(object.employees.first, object.employees.middle, object.employees.last, object.employees.gender, object.employees.birthday, object.employees.tfn, object.employees.account_name, object.employees.account_bsb, object.employees.account_number, object.employees.emc1_name, object.employees.emc1_relationship, object.employees.emc1_contact, object.employees.emc2_name,
@@ -90,6 +90,7 @@ class Employee extends Model {
             console.log("Sending Request for employees to DB.");
             if(err)
               throw err;
+              console.log(rows);
             let rEmp = employee.newReturnEmployee(rows.first, rows.middle, rows.last, rows.gender, rows.birthday, rows.tfn, rows.account_name, rows.account_bsb, rows.account_number, rows.emc1_name, rows.emc1_relationship, rows.emc1_contact, rows.emc2_name, rows.emc2_relationship, rows.emc2_contact, null);
             rclient.hmset("stormcellhr_employees_"+company, {
               employees: JSON.stringify(rEmp)
