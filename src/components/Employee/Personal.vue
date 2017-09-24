@@ -95,7 +95,7 @@
               </tr>
               <tr>
                 <td class="detail">Personal Email:</td>
-                <td>-</td>
+                <td>{{employee.email}}</td>
               </tr>
               <tr>
                 <td class="detail">Work Phone:</td>
@@ -103,7 +103,7 @@
               </tr>
               <tr>
                 <td class="detail">Mobile Phone:</td>
-                <td>-</td>
+                <td>{{employee.phone}}</td>
               </tr>
             </table>
           </div>
