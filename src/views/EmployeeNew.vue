@@ -5,12 +5,18 @@
         Hire New Employee
       </div>
     </div>
+    <hire-stepper></hire-stepper>
   </div>
 </template>
 
 <script>
+import HireStepper from '@/components/EmployeeNew/HireStepper'
+
 export default {
-  name: 'new-employee'
+  name: 'new-employee',
+  components: {
+    'hire-stepper': HireStepper
+  }
 }
 </script>
 
