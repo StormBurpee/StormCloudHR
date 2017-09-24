@@ -28,7 +28,30 @@ class Employee extends Model {
     newEmployee.location = "Location Placeholder";
     newEmployee.status = "Full Time";
 
-    return newEmployee;
+    return newEmployee.toJSON();
+  }
+
+  toJSON() {
+      return {
+        first: this.first,
+        middle: this.middle,
+        last: this.last,
+        gender: this.gender,
+        birthday: this.birthday,
+        tfn: this.birthday,
+        account_name: this.account_name,
+        account_bsb: this.account_bsb,
+        account_number: this.account_number,
+        emc1_name: this.emc1_name,
+        emc1_relationship: this.emc1_relationship,
+        emc1_contact: this.emc1_contact,
+        emc2_name: this.emc2_name,
+        emc2_relationship: this.emc2_relationship,
+        emc2_contact: this.emc2_contact,
+        title: this.title,
+        location: this.location,
+        status: this.status
+      }
   }
 
   getEmployees(company) {
