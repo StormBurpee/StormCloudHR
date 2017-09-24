@@ -28,7 +28,8 @@ class Employee extends Model {
     newEmployee.location = "Location Placeholder";
     newEmployee.status = "Full Time";
 
-    return newEmployee;
+    console.log(JSON.stringify(newEmployee));
+    return JSON.stringify(newEmployee);
   }
 
   toJSON() {
@@ -62,19 +63,19 @@ class Employee extends Model {
       rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
         if(object != null && object.employees != null) {
           console.log("Received Employees from Redis Cache");
-          resolve(JSON.parse(employee.newReturnEmployee(object.employees.first, object.employees.middle, object.employees.last, object.employees.gender, object.employees.birthday, object.employees.tfn, object.employees.account_name, object.employees.account_bsb, object.employees.account_number, object.employees.emc1_name, object.employees.emc1_relationship, object.employees.emc1_contact, object.employees.emc2_name,
-            object.employees.emc2_relationship, object.employees.emc2_contact, null)));
+          resolve(employee.newReturnEmployee(object.employees.first, object.employees.middle, object.employees.last, object.employees.gender, object.employees.birthday, object.employees.tfn, object.employees.account_name, object.employees.account_bsb, object.employees.account_number, object.employees.emc1_name, object.employees.emc1_relationship, object.employees.emc1_contact, object.employees.emc2_name,
+            object.employees.emc2_relationship, object.employees.emc2_contact, null));
         } else {
           db.query("SELECT * FROM employees WHERE belongs_to="+company, (err, rows) => {
             console.log("Sending Request for employees to DB.");
             if(err)
               throw err;
-
+            let rEmp = employee.newReturnEmployee(rows.first, rows.middle, rows.last, rows.gender, rows.birthday, rows.tfn, rows.account_name, rows.account_bsb, rows.account_number, rows.emc1_name, rows.emc1_relationship, rows.emc1_contact, rows.emc2_name, rows.emc2_relationship, rows.emc2_contact, null);
             rclient.hmset("stormcellhr_employees_"+company, {
-              employees: JSON.stringify(employee.newReturnEmployee(rows.first, rows.middle, rows.last, rows.gender, rows.birthday, rows.tfn, rows.account_name, rows.account_bsb, rows.account_number, rows.emc1_name, rows.emc1_relationship, rows.emc1_contact, rows.emc2_name, rows.emc2_relationship, rows.emc2_contact, null))
+              employees: JSON.stringify(rRemp)
             });
             rclient.expire("stormcellhr_employees_"+company, 120);
-            resolve(rows);
+            resolve(rEmp);
           });
         }
       });
