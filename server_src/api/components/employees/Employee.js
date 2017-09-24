@@ -78,9 +78,7 @@ class Employee extends Model {
         emc2_name: employee.emc2_name,
         emc2_relationship: employee.emc2_relationship,
         emc2_contact: employee.emc2_contact,
-        title: employee.title,
-        location: employee.location,
-        status: employee.status
+        jobdetails: employee.jobdetails
       }
   }
 
