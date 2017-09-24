@@ -2,7 +2,26 @@ var Model = require('../model');
 
 class Employee extends Model {
   constructor(rclient, db) {
-    super(rclient, db);
+    super(rclient, db);newEmployee.first = first;
+    this.middle = "";
+    this.last = "";
+    this.gender = "";
+    this.birthday = "";
+    this.tfn = "";
+    this.account_name = "";
+    this.account_bsb = "";
+    this.account_number = "";
+    this.emc1_name = "";
+    this.emc1_relationship = "";
+    this.emc1_contact = "";
+    this.emc2_name = "";
+    this.emc2_relationship = "";
+    this.emc2_contact = "";
+
+    // Job Details
+    this.title = "Title Placeholder";
+    this.location = "Location Placeholder";
+    this.status = "Full Time";
   }
 
   newReturnEmployee(first, middle, last, gender, birthday, tfn, account_name, account_bsb, account_number, emc1_name, emc1_relationship, emc1_contact, emc2_name, emc2_relationship, emc2_contact, jobdetails) {
