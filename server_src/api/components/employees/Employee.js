@@ -95,10 +95,10 @@ class Employee extends Model {
             for(var i = 0; i < rows.length; i++) {
               let row = rows[i];
               let rEmp = employee.newReturnEmployee(row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, null);
-              returnEmployees.push( JSON.stringify(rEmp) );
+              returnEmployees.push( rEmp );
             }
             rclient.hmset("stormcellhr_employees_"+company, {
-              employees: returnEmployees
+              employees: JSON.stringify(returnEmployees)
             });
             rclient.expire("stormcellhr_employees_"+company, 120);
             resolve(returnEmployees);
