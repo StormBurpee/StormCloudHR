@@ -48,7 +48,7 @@ class Employee extends Model {
     newEmployee.location = "Location Placeholder";
     newEmployee.status = "Full Time";
 
-    return JSON.stringify(newEmployee);
+    return newEmployee;
   }
 
   toJSON() {
