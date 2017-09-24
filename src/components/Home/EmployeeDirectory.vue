@@ -25,7 +25,7 @@
         </template>
         <template slot='items' scope='props'>
           <td><router-link :to="props.item.url">{{props.item.last}}</router-link></td>
-          <td>{{props.item.first}}</td>
+          <td><router-link :to="props.item.url">{{props.item.first}}</router-link></td>
           <td>{{props.item.title}}</td>
           <td>{{props.item.location}}</td>
           <td>{{props.item.status}}</td>
