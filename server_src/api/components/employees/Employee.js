@@ -53,25 +53,26 @@ class Employee extends Model {
   }
 
   toJSON() {
+    let employee = this;
       return {
-        first: this.first,
-        middle: this.middle,
-        last: this.last,
-        gender: this.gender,
-        birthday: this.birthday,
-        tfn: this.birthday,
-        account_name: this.account_name,
-        account_bsb: this.account_bsb,
-        account_number: this.account_number,
-        emc1_name: this.emc1_name,
-        emc1_relationship: this.emc1_relationship,
-        emc1_contact: this.emc1_contact,
-        emc2_name: this.emc2_name,
-        emc2_relationship: this.emc2_relationship,
-        emc2_contact: this.emc2_contact,
-        title: this.title,
-        location: this.location,
-        status: this.status
+        first: employee.first,
+        middle: employee.middle,
+        last: employee.last,
+        gender: employee.gender,
+        birthday: employee.birthday,
+        tfn: employee.birthday,
+        account_name: employee.account_name,
+        account_bsb: employee.account_bsb,
+        account_number: employee.account_number,
+        emc1_name: employee.emc1_name,
+        emc1_relationship: employee.emc1_relationship,
+        emc1_contact: employee.emc1_contact,
+        emc2_name: employee.emc2_name,
+        emc2_relationship: employee.emc2_relationship,
+        emc2_contact: employee.emc2_contact,
+        title: employee.title,
+        location: employee.location,
+        status: employee.status
       }
   }
 
@@ -90,13 +91,19 @@ class Employee extends Model {
             console.log("Sending Request for employees to DB.");
             if(err)
               throw err;
-              console.log(rows);
-            let rEmp = employee.newReturnEmployee(rows.first, rows.middle, rows.last, rows.gender, rows.birthday, rows.tfn, rows.account_name, rows.account_bsb, rows.account_number, rows.emc1_name, rows.emc1_relationship, rows.emc1_contact, rows.emc2_name, rows.emc2_relationship, rows.emc2_contact, null);
+
+            let returnEmployees = [];
+
+            for(var i = 0; i < rows.length; i++) {
+              let row = rows[i];
+              let rEmp = employee.newReturnEmployee(rows.first, rows.middle, rows.last, rows.gender, rows.birthday, rows.tfn, rows.account_name, rows.account_bsb, rows.account_number, rows.emc1_name, rows.emc1_relationship, rows.emc1_contact, rows.emc2_name, rows.emc2_relationship, rows.emc2_contact, null);
+              returnEmployees[] = rEmp;
+            }
             rclient.hmset("stormcellhr_employees_"+company, {
-              employees: JSON.stringify(rEmp)
+              employees: JSON.stringify(returnEmployees)
             });
             rclient.expire("stormcellhr_employees_"+company, 120);
-            resolve(rEmp);
+            resolve(returnEmployees);
           });
         }
       });
