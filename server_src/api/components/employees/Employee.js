@@ -85,6 +85,55 @@ class Employee extends Model {
       }
   }
 
+  getEmployee(id) {
+    let db = this.db;
+    let rclient = this.rclient;
+    let employee = this;
+    return new Promise((resolve, reject) => {
+      rclient.hgetall('stormcellhr_employee_'+id, function(err, object) {
+        if(object != null && object.employee != null) {
+          console.log("Received Employee #"+id+" From Redis Cache.");
+          resolve(JSON.parse(object.employee));
+        } else {
+          db.query("SELECT * FROM employees WHERE employee_id="+id, (err, rows) => {
+            console.log("Sending Request for Employee #"+id+" to DB.");
+            if(err)
+              throw err;
+
+            let returnEmployees = [];
+            db.query("SELECT * FROM job_details WHERE employee_id="+id, (err, rows) => {
+              let jobdetails = {};
+              let row = rows[0];
+              for(var j = 0; j < rows.length; j++) {
+                let job = rows[j];
+                jobdetails = {
+                  title: job.job_title,
+                  location: "Propagate("+job.location_id+")",
+                  department: "Propagate("+job.department_id+")",
+                  status: employee.getEmploymentType(job.employment_type),
+                  manager: "Propagate("+job.manager_id+")",
+                  pay_rate: job.pay_rate,
+                  pay_currency: job.pay_currency,
+                  pay_type: employee.getPayType(job.pay_type),
+                  pay_frequency: employee.getPayFrequency(job.pay_frequency),
+                  commision: job.commision,
+                  bonus_structure: job.bonus_structure
+                }
+              }
+              let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails);
+              returnEmployees.push(rEmp);
+              rclient.hmset("stormcellhr_employee_"+id, {
+                employee: JSON.stringify(returnEmployees)
+              });
+              rclient.expire("stormcellhr_employee_"+id, 240);
+              resolve(returnEmployees);
+            });
+          });
+        }
+      });
+    });
+  }
+
   getEmployees(company) {
     let db = this.db;
     let rclient = this.rclient;
