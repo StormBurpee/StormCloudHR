@@ -1,7 +1,7 @@
 <template>
   <header class="hr-header">
     <ul class="pull-left">
-      <li class="page-header">StormCellHR</li>
+      <li class="page-header">StormCloud<span>HR</span></li>
       <li class="page-link"><router-link to="/">Employees</router-link></li>
       <li class="page-link"><router-link to="/time-off">Time Off</router-link></li>
       <li class="page-link"><router-link to="#">Performance</router-link></li>
@@ -40,9 +40,12 @@ export default {
         list-style-type: none;
         display: inline-block;
         &.page-header {
-          font-weight: 800;
+          font-weight: 300;
           font-size: 18px;
           margin-right: 30px;
+          & span {
+            font-weight: 600;
+          }
         }
         &.page-link {
           color: #FFFFFF;

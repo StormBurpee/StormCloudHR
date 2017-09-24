@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card class="directory">
       <v-card-title>
         <v-text-field
           append-icon="search"
@@ -82,5 +82,7 @@ export default {
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped lang='scss'>
-
+  .directory {
+    margin-top: 25px;
+  }
 </style>
