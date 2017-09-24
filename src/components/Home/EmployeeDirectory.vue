@@ -24,7 +24,7 @@
           </span>
         </template>
         <template slot='items' scope='props'>
-          <td>{{props.item.last}}</td>
+          <td><router-link :to="props.item.url">{{props.item.last}}</router-link></td>
           <td>{{props.item.first}}</td>
           <td>{{props.item.title}}</td>
           <td>{{props.item.location}}</td>
@@ -76,6 +76,7 @@ export default {
       for (var i = 0; i < response.data.employees.length; i++) {
         let employee = response.data.employees[i]
         this.items.push({
+          url: '/employee/' + employee.id,
           last: employee.last,
           first: employee.first,
           title: employee.jobdetails.title,

@@ -3,6 +3,7 @@ var Model = require('../model');
 class Employee extends Model {
   constructor(rclient, db) {
     super(rclient, db);
+    this.id = 0;
     this.first = "";
     this.middle = "";
     this.last = "";
@@ -36,8 +37,9 @@ class Employee extends Model {
     return types[pay_frequency];
   }
 
-  newReturnEmployee(first, middle, last, gender, birthday, tfn, account_name, account_bsb, account_number, emc1_name, emc1_relationship, emc1_contact, emc2_name, emc2_relationship, emc2_contact, jobdetails) {
+  newReturnEmployee(id, first, middle, last, gender, birthday, tfn, account_name, account_bsb, account_number, emc1_name, emc1_relationship, emc1_contact, emc2_name, emc2_relationship, emc2_contact, jobdetails) {
     let newEmployee = new Employee(this.rclient, this.db);
+    newEmployee.id = id;
     newEmployee.first = first;
     newEmployee.middle = middle;
     newEmployee.last = last;
@@ -63,6 +65,7 @@ class Employee extends Model {
   toJSON() {
     let employee = this;
       return {
+        id: employee.id,
         first: employee.first,
         middle: employee.middle,
         last: employee.last,
@@ -120,7 +123,7 @@ class Employee extends Model {
                     bonus_structure: job.bonus_structure
                   }
                 }
-                let rEmp = employee.newReturnEmployee(row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails);
+                let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails);
                 returnEmployees.push( rEmp );
                 if(returnEmployees.length == erows) {
                   rclient.hmset("stormcellhr_employees_"+company, {
