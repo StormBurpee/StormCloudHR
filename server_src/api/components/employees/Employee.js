@@ -96,7 +96,7 @@ class Employee extends Model {
 
             for(var i = 0; i < rows.length; i++) {
               let row = rows[i];
-              let rEmp = employee.newReturnEmployee(rows.first, rows.middle, rows.last, rows.gender, rows.birthday, rows.tfn, rows.account_name, rows.account_bsb, rows.account_number, rows.emc1_name, rows.emc1_relationship, rows.emc1_contact, rows.emc2_name, rows.emc2_relationship, rows.emc2_contact, null);
+              let rEmp = employee.newReturnEmployee(row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, null);
               returnEmployees.push( rEmp );
             }
             rclient.hmset("stormcellhr_employees_"+company, {
