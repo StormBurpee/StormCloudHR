@@ -72,8 +72,22 @@ export default {
     axios.get('http://stormcloudhr.com:3000/employees/1')
     .then(response => {
       // JSON responses are automatically parsed.
+<<<<<<< HEAD
       this.items = response.data.employees
       console.log(this.items)
+=======
+      this.items = []
+      for (var i = 0; i < response.data.employees.length; i++) {
+        let employee = response.data.employees[i]
+        this.items.push({
+          last: employee.last,
+          first: employee.first,
+          title: employee.title,
+          location: employee.title,
+          status: employee.status
+        })
+      }
+>>>>>>> 3a0d8414b4d7a389b2a98af6ee9e817cd132a3a9
     })
     .catch(e => {
       console.log(e)

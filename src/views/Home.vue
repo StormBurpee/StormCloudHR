@@ -27,10 +27,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-  .page-subheader {
-    font-size: 36px;
-    font-weight: 300;
-    padding: 0px;
-    margin: 0px;
-  }
+  
 </style>

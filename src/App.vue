@@ -46,4 +46,10 @@ a {
   color: inherit;
   text-decoration: none;
 }
+.page-subheader {
+  font-size: 36px;
+  font-weight: 300;
+  padding: 0px;
+  margin: 0px;
+}
 </style>
