@@ -101,7 +101,8 @@ class Employee extends Model {
               employees: JSON.stringify(returnEmployees)
             });
             rclient.expire("stormcellhr_employees_"+company, 120);
-            resolve(JSON.parse(returnEmployees));
+            console.log(returnEmployees);
+            resolve(returnEmployees);
           });
         }
       });
