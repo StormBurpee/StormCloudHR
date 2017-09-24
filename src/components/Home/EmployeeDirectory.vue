@@ -15,7 +15,7 @@
         v-bind:items='items'
         v-bind:search='search'
         v-bind:pagination.sync='pagination'
-        class='elevation-1'
+        class='elevation-0'
       >
         <template slot='headerCell' scope='props'>
           <span v-tooltip:bottom="{ 'html': props.header.text }">
