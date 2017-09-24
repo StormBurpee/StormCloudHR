@@ -111,12 +111,12 @@ class Employee extends Model {
                     title: job.job_title,
                     location: "Propagate("+job.location_id+")",
                     department: "Propagate("+job.department_id+")",
-                    status: getEmploymentType(job.employment_type),
+                    status: employee.getEmploymentType(job.employment_type),
                     manager: "Propagate("+job.manager_id+")",
                     pay_rate: job.pay_rate,
                     pay_currency: job.pay_currency,
-                    pay_type: getPayType(job.pay_type),
-                    pay_frequency: getPayFrequency(job.pay_frequency),
+                    pay_type: employee.getPayType(job.pay_type),
+                    pay_frequency: employee.getPayFrequency(job.pay_frequency),
                     commision: job.commision,
                     bonus_structure: job.bonus_structure
                   }
