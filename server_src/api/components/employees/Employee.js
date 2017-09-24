@@ -80,7 +80,7 @@ class Employee extends Model {
     let rclient = this.rclient;
     let employee = this;
     return new Promise((resolve, reject) => {
-      rclient.hgetall('stormcellhr_employeesd_'+company, function(err, object) {
+      rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
         if(object != null && object.employees != null) {
           console.log("Received Employees from Redis Cache");
           resolve(JSON.parse(object.employees));
@@ -101,7 +101,6 @@ class Employee extends Model {
               employees: JSON.stringify(returnEmployees)
             });
             rclient.expire("stormcellhr_employees_"+company, 120);
-            console.log(returnEmployees);
             resolve(returnEmployees);
           });
         }
