@@ -92,7 +92,7 @@ class Employee extends Model {
               throw err;
             let rEmp = employee.newReturnEmployee(rows.first, rows.middle, rows.last, rows.gender, rows.birthday, rows.tfn, rows.account_name, rows.account_bsb, rows.account_number, rows.emc1_name, rows.emc1_relationship, rows.emc1_contact, rows.emc2_name, rows.emc2_relationship, rows.emc2_contact, null);
             rclient.hmset("stormcellhr_employees_"+company, {
-              employees: JSON.stringify(rRemp)
+              employees: JSON.stringify(rEmp)
             });
             rclient.expire("stormcellhr_employees_"+company, 120);
             resolve(rEmp);
