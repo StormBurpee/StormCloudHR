@@ -37,7 +37,9 @@ body {
   height: 150px;
   line-height: 140px;
   color: #fff;
-  width: 100%;
   padding: 0px 50px;
+}
+.view {
+  max-width: 100%;
 }
 </style>

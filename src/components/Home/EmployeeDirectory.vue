@@ -1,40 +1,85 @@
 <template>
-    <div>
+    <v-card>
+      <v-card-title>
+        <v-text-field
+          append-icon="search"
+          label="Search Employees..."
+          single-line
+          hide-details
+          v-model="search"
+        ></v-text-field>
+        <v-spacer></v-spacer>
+      </v-card-title>
       <v-data-table
-        v-bind:headers="headers"
-        v-bind:items="items"
-        v-bind:search="search"
-        v-bind:pagination.sync="pagination"
-        class="elevation-1"
+        v-bind:headers='headers'
+        v-bind:items='items'
+        v-bind:search='search'
+        v-bind:pagination.sync='pagination'
+        class='elevation-1'
       >
-        <template slot="headerCell" scope="props">
+        <template slot='headerCell' scope='props'>
           <span v-tooltip:bottom="{ 'html': props.header.text }">
             {{ props.header.text }}
           </span>
         </template>
-        <template slot="items" scope="props">
-          <td>{{ props.item.name }}</td>
-          <td  class="text-xs-right">{{ props.item.calories }}</td>
-          <td  class="text-xs-right">{{ props.item.fat }}</td>
-          <td  class="text-xs-right">{{ props.item.carbs }}</td>
-          <td  class="text-xs-right">{{ props.item.protein }}</td>
-          <td  class="text-xs-right">{{ props.item.sodium }}</td>
+        <template slot='items' scope='props'>
+          <td>{{props.item.last}}</td>
+          <td>{{props.item.first}}</td>
+          <td>{{props.item.title}}</td>
+          <td>{{props.item.location}}</td>
+          <td>{{props.item.status}}</td>
         </template>
       </v-data-table>
-      <div class="text-xs-center pt-2">
-        <v-btn primary @click.native="toggleOrder">Toggle sort order</v-btn>
-        <v-btn primary @click.native="nextSort">Sort next column</v-btn>
-      </div>
-    </div>
+    </v-card>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'employee-directory'
+  name: 'employee-directory',
+  data () {
+    return {
+      search: '',
+      pagination: {
+        sortBy: 'last'
+      },
+      selected: [],
+      headers: [
+        {text: 'Last Name', value: 'last', align: 'left'},
+        {text: 'First Name', value: 'first', align: 'left'},
+        {text: 'Title', value: 'title', align: 'left'},
+        {text: 'Location', value: 'location', align: 'left'},
+        {text: 'Status', value: 'status', align: 'left'}
+      ],
+      items: []
+    }
+  },
+  methods: {
+    toggleOrder () {
+      this.pagination.descending = !this.pagination.descending
+    },
+    nextSort () {
+      let index = this.headers.findIndex(h => h.value === this.pagination.sortBy)
+      index = (index + 1) % this.headers.length
+      index = index === 0 ? index + 1 : index
+      this.pagination.sortBy = this.headers[index].value
+    }
+  },
+  created () {
+    axios.get('http://stormcloudhr.com:3000/employees/1')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.items = response.data.employees
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
+  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<!-- Add 'scoped' attribute to limit CSS to this component only -->
+<style scoped lang='scss'>
 
 </style>
