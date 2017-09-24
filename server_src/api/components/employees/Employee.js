@@ -102,6 +102,7 @@ class Employee extends Model {
             for(var i = 0; i < rows.length; i++) {
               let row = rows[i];
               let jobdetails = {};
+              let erows = rows.length;
               db.query("SELECT * FROM job_details WHERE employee_id="+row.employee_id, (err, rows) => {
                 for(var j = 0; j < rows.length; j++) {
                   let job = rows[j];
@@ -121,8 +122,8 @@ class Employee extends Model {
                 }
                 let rEmp = employee.newReturnEmployee(row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails);
                 returnEmployees.push( rEmp );
-                console.log(i, rows.length-1);
-                if(i == rows.length-1) {
+                console.log(returnEmployees, erows-1);
+                if(returnEmployees.length == erows-1) {
                   console.log(returnEmployees.length);
                   rclient.hmset("stormcellhr_employees_"+company, {
                     employees: JSON.stringify(returnEmployees)
