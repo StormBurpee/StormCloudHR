@@ -2,9 +2,13 @@ var express   = require('express');
 var redis     = require("redis");
 var bluebird  = require('bluebird');
 var mysql     = require('mysql');
+var cors      = require('cors');
 
 var app = express();
 var port = process.env.PORT || 3000;
+var corsOptions = {
+  origin: "*"
+}
 
 var Model = require('./api/components/model');
 var Employee = require('./api/components/employees/Employee')
@@ -56,13 +60,7 @@ router.get('/employees/:belongsto', function(request, response) {
   });
 });
 
+app.use(cors(corsOptions));
 app.use('/', router);
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
 app.listen(port);
 console.log("Server Initalized and Online.");
