@@ -8,6 +8,17 @@
       <li class="page-link"><router-link to="#">Training</router-link></li>
       <li class="page-link"><router-link to="#">Reports</router-link></li>
     </ul>
+    <ul class="pull-right">
+      <li class="page-link"><router-link to="#">My Inbox</router-link></li>
+      <li class="page-link">
+        <router-link to="#">
+          <v-chip outline>
+            <v-avatar class="teal">SB</v-avatar>
+            Storm Burpee
+          </v-chip>
+        </router-link>
+      </li>
+    </ul>
   </header>
 </template>
 
@@ -19,6 +30,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  .pull-right {
+    float: right;
+  }
   .hr-header {
     height: 50px;
     width: 100%;
@@ -33,6 +47,7 @@ export default {
       padding: 0;
       margin: 0;
       list-style-type: none;
+      display: inline-block;
 
       & li {
         padding: 0;
@@ -52,6 +67,10 @@ export default {
           padding: 0px 10px;
           font-size: 14px;
           font-weight: 500;
+          & .chip {
+            cursor: pointer;
+            color: #fff;
+          }
           & router-link, & a {
             text-decoration: none;
             color: #FFFFFF;
