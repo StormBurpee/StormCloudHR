@@ -120,7 +120,7 @@ class Employee extends Model {
                   bonus_structure: job.bonus_structure
                 }
               }
-              let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails);
+              let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.gender, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails);
               returnEmployees.push(rEmp);
               rclient.hmset("stormcellhr_employee_"+id, {
                 employee: JSON.stringify(returnEmployees)
@@ -172,7 +172,7 @@ class Employee extends Model {
                     bonus_structure: job.bonus_structure
                   }
                 }
-                let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.gender, row.birthday, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails);
+                let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.gender, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails);
                 returnEmployees.push( rEmp );
                 if(returnEmployees.length == erows) {
                   rclient.hmset("stormcellhr_employees_"+company, {

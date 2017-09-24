@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="employee.first">
     <v-layout row wrap>
       <v-flex xs3 class="employee-detail-overview">
         <v-card class="avatar-card" flat>
@@ -8,14 +8,14 @@
           </v-avatar>
         </v-card>
         <br>
-        <strong class="employee-detail-name">First Last</strong>
+        <strong class="employee-detail-name">{{employee.first}} {{employee.last}}</strong>
         <div class="user-detail">
           <span class="overview">Location</span><br>
-          Propagate(1)
+          {{employee.jobdetails.location}}
         </div>
         <div class="user-detail">
           <span class="overview">Status</span><br>
-          Full Time
+          {{employee.jobdetails.status}}
         </div>
       </v-flex>
       <v-flex xs9>
@@ -27,23 +27,23 @@
             <table class="detail-table">
               <tr>
                 <td class="detail">First Name:</td>
-                <td>First</td>
+                <td>{{employee.first}}</td>
               </tr>
               <tr>
                 <td class="detail">Middle Name:</td>
-                <td>-</td>
+                <td>{{employee.middle}}</td>
               </tr>
               <tr>
                 <td class="detail">Last Name:</td>
-                <td>Last</td>
+                <td>{{employee.last}}</td>
               </tr>
               <tr>
                 <td class="detail">Gender:</td>
-                <td>Unknown</td>
+                <td>{{employee.gender == 1 ? "Male" : "Female"}}</td>
               </tr>
               <tr>
                 <td class="detail">Birthdate:</td>
-                <td>Unknown</td>
+                <td>{{employee.birthday}}</td>
               </tr>
             </table>
           </div>
@@ -124,8 +124,27 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'employee-personal'
+  name: 'employee-personal',
+  data () {
+    return {
+      employee: {}
+    }
+  },
+  created () {
+    axios.get('http://stormcloudhr.com:3000/employee/' + this.$route.params.id)
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.employee = response.data.employee[0]
+      console.log(this.employee)
+    })
+    .catch(e => {
+      console.log(e)
+      // this.errors.push(e)
+    })
+  }
 }
 </script>
 
