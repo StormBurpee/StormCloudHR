@@ -101,9 +101,9 @@ class Employee extends Model {
               throw err;
 
             let returnEmployees = [];
+            let row = rows[0];
             db.query("SELECT * FROM job_details WHERE employee_id="+id, (err, rows) => {
               let jobdetails = {};
-              let row = rows[0];
               for(var j = 0; j < rows.length; j++) {
                 let job = rows[j];
                 jobdetails = {
