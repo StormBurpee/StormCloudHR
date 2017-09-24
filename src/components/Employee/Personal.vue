@@ -57,27 +57,27 @@
             <table class="detail-table">
               <tr>
                 <td class="detail">Address Line 1:</td>
-                <td>-</td>
+                <td>{{employee.address.line1}}</td>
               </tr>
               <tr>
                 <td class="detail">Address Line 2:</td>
-                <td>-</td>
+                <td>{{employee.address.line2}}</td>
               </tr>
               <tr>
                 <td class="detail">Country:</td>
-                <td>-</td>
+                <td>{{employee.address.country}}</td>
               </tr>
               <tr>
                 <td class="detail">State/Province:</td>
-                <td>-</td>
+                <td>{{employee.address.state}}</td>
               </tr>
               <tr>
                 <td class="detail">City:</td>
-                <td>-</td>
+                <td>{{employee.address.city}}</td>
               </tr>
               <tr>
                 <td class="detail">Postal Code:</td>
-                <td>-</td>
+                <td>{{employee.address.postcode}}</td>
               </tr>
             </table>
           </div>

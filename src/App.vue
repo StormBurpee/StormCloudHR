@@ -16,7 +16,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -55,5 +55,27 @@ a {
 .our-primary {
   background-color: #4D73E3!important;
   border-color: #4D73E3!important;
+}
+
+.input-group--text-field {
+  & label {
+    padding: 5px;
+  }
+
+  & .input-group__input {
+    background-color: #fff;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      padding: 5px;
+  }
+
+  & .input-group__details {
+    display: none;
+  }
+}
+
+.input-group--text-field:not(.input-group--single-line).input-group--focused:not(.input-group--textarea) label, .input-group--text-field:not(.input-group--single-line).input-group--placeholder:not(.input-group--textarea) label {
+    -webkit-transform: translate3d(0,-25px,0) scale(.75)!important;
+    transform: translate3d(0,-25px,0) scale(.75)!important;
 }
 </style>
