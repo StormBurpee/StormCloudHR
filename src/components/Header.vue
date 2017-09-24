@@ -2,7 +2,7 @@
   <header class="hr-header">
     <ul class="pull-left">
       <li class="page-header">StormCloud<span>HR</span></li>
-      <li class="page-link"><router-link to="/">Employees</router-link></li>
+      <li class="page-link"><router-link to="/employees">Employees</router-link></li>
       <li class="page-link"><router-link to="/time-off">Time Off</router-link></li>
       <li class="page-link"><router-link to="#">Performance</router-link></li>
       <li class="page-link"><router-link to="#">Training</router-link></li>

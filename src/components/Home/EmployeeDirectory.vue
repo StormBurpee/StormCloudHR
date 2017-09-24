@@ -9,6 +9,7 @@
           v-model="search"
         ></v-text-field>
         <v-spacer></v-spacer>
+        <router-link to="/employees/new"><v-btn light primary class="directory-btn">Hire</v-btn></router-link>
       </v-card-title>
       <v-data-table
         v-bind:headers='headers'
@@ -40,6 +41,7 @@ export default {
   name: 'employee-directory',
   data () {
     return {
+      tmp: '',
       search: '',
       pagination: {
         sortBy: 'last'
@@ -83,6 +85,15 @@ export default {
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped lang='scss'>
   .directory {
+    margin: 0px 25px;
     margin-top: 25px;
+  }
+
+  .directory-btn {
+    & a {
+      color: #fff;
+      text-decoration: none;
+    }
+    color: #fff!important;
   }
 </style>

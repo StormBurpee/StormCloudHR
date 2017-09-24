@@ -26,7 +26,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
   .page-subheader {
     font-size: 36px;
     font-weight: 300;

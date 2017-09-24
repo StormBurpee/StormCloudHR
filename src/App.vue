@@ -42,4 +42,8 @@ body {
 .view {
   max-width: 100%;
 }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 </style>
