@@ -4,7 +4,7 @@
       <v-flex xs3 class="employee-detail-overview">
         <v-card class="avatar-card" flat>
           <v-avatar class="blue employee-avatar">
-            <span class="white--text headline">FL</span>
+            <span class="white--text headline">{{employee.first.slice(0, 1)}}{{employee.last.slice(0, 1)}}</span>
           </v-avatar>
         </v-card>
         <br>
