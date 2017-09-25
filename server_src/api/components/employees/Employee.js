@@ -243,7 +243,7 @@ class Employee extends Model {
                   employee.debug(values);
                   let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
                   returnEmployees.push(rEmp);
-                  rclient.hmset("stormcellhr_employee_"+id, {
+                  rclient.hmset("stormcellhr_employees_"+company, {
                     employee: JSON.stringify(returnEmployees)
                   });
                   rclient.expire("stormcellhr_employees_"+company, 240);
