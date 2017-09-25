@@ -19,13 +19,13 @@
               </v-chip>
               <v-list class="dropdown-list">
                 <v-list-tile @click="">
-                  <v-list-tile-title><router-link to="/employee/1">My Details</router-link></v-list-tile-title>
+                  <router-link to="/employee/1"><v-list-tile-title>My Details</v-list-tile-title></router-link>
                 </v-list-tile>
                 <v-list-tile @click="">
-                  <v-list-tile-title><router-link to="#">Personal Settings</router-link></v-list-tile-title>
+                  <router-link to="#"><v-list-tile-title>Personal Settings</v-list-tile-title></router-link>
                 </v-list-tile>
                 <v-list-tile @click="">
-                  <v-list-tile-title><router-link to="#">Company Settings</router-link></v-list-tile-title>
+                  <router-link to="#"><v-list-tile-title>Company Settings</v-list-tile-title></router-link>
                 </v-list-tile>
                 <v-list-tile @click="">
                   <v-list-tile-title v-on:click="logout()">Log Out</v-list-tile-title>

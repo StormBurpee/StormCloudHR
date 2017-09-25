@@ -5,6 +5,8 @@ var mysql         = require('mysql');
 var cors          = require('cors');
 var Q             = require('q');
 var passwordhash  = require('password-hash')
+var bodyparser    = require('body-parser');
+var cookieparser  = require('cookie-parser')
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -23,6 +25,10 @@ var db = mysql.createConnection({
   password: "stormcloud123",
   database: "stormcloudhr_default"
 });
+
+app.use(cookieparser());
+app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyparser.json());
 
 console.log("Starting server initalization.");
 db.connect((err) => {
