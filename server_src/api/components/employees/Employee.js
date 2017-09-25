@@ -112,7 +112,7 @@ class Employee extends Model {
         employee.debug("Found Location: ");
         employee.debug(row);
         jobdetails.location = {
-          location_name: row.name,
+          location_name: row.location_name,
           address: row.address,
           country: row.country,
           state: row.state,
