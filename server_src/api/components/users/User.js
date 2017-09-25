@@ -32,8 +32,8 @@ class User extends Model {
               resolve(JSON.parse(JSON.stringify(actualUser)));
             });
           } else {
-            thisUser.debug("Password was incorret");
-            resolve({error: 1, error_msg: "Wrong Password."})
+            thisUser.debug("Password was incorrect");
+            resolve({error: 1, error_msg: "Wrong Password."});
           }
         } else {
           resolve({error: 1, error_msg: "User with email '"+email+"' does not exist."});
