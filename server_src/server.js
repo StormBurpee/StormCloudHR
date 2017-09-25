@@ -104,8 +104,13 @@ router.post("/user/login", function(request, response) {
 
 });
 
+router.get("/user/genpass/:password", function(request, response) {
+  let pass = request.params.password;
+  response.json({message: "Sneaky sneaky password generation", password: passwordhash.generate(pass)});
+});
+
 router.get("/user/register", function(request, response) {
-  response.json({message: "Sneaky sneaky password generation", password: passwordhash.generate('abigail12')});
+
 });
 
 app.use(cors(corsOptions));

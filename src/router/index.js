@@ -5,6 +5,7 @@ import Home from '@/views/Home'
 import TimeOff from '@/views/TimeOff'
 import EmployeeNew from '@/views/EmployeeNew'
 import Employee from '@/views/Employee'
+import Login from '@/views/Login'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/time-off',
       name: 'Time Off',
       component: TimeOff
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ]
 })

@@ -10,6 +10,11 @@ import Header from '@/components/Header'
 
 export default {
   name: 'app',
+  data () {
+    return {
+      loggedin: true
+    }
+  },
   components: {
     'hr-header': Header
   }

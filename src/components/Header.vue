@@ -1,44 +1,59 @@
 <template>
-  <header class="hr-header">
-    <ul class="pull-left">
-      <li class="page-header">StormCloud<span>HR</span></li>
-      <li class="page-link"><router-link to="/employees">Employees</router-link></li>
-      <li class="page-link"><router-link to="/time-off">Time Off</router-link></li>
-      <li class="page-link"><router-link to="#">Performance</router-link></li>
-      <li class="page-link"><router-link to="#">Training</router-link></li>
-      <li class="page-link"><router-link to="#">Reports</router-link></li>
-    </ul>
-    <ul class="pull-right">
-      <li class="page-link"><router-link to="#">My Inbox</router-link></li>
-      <li class="page-link">
-        <v-menu bottom right>
-            <v-chip outline slot="activator">
-              <v-avatar class="teal">SB</v-avatar>
-              Storm Burpee
-            </v-chip>
-            <v-list class="dropdown-list">
-              <v-list-tile @click="">
-                <v-list-tile-title><router-link to="/employee/1">My Details</router-link></v-list-tile-title>
-              </v-list-tile>
-              <v-list-tile @click="">
-                <v-list-tile-title><router-link to="#">Personal Settings</router-link></v-list-tile-title>
-              </v-list-tile>
-              <v-list-tile @click="">
-                <v-list-tile-title><router-link to="#">Company Settings</router-link></v-list-tile-title>
-              </v-list-tile>
-              <v-list-tile @click="">
-                <v-list-tile-title><router-link to="#">Log Out</router-link></v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-      </li>
-    </ul>
-  </header>
+  <div class="header-container">
+    <header class="hr-header" v-if="this.$store.state.loggedin">
+      <ul class="pull-left">
+        <li class="page-header">StormCloud<span>HR</span></li>
+        <li class="page-link"><router-link to="/employees">Employees</router-link></li>
+        <li class="page-link"><router-link to="/time-off">Time Off</router-link></li>
+        <li class="page-link"><router-link to="#">Performance</router-link></li>
+        <li class="page-link"><router-link to="#">Training</router-link></li>
+        <li class="page-link"><router-link to="#">Reports</router-link></li>
+      </ul>
+      <ul class="pull-right">
+        <li class="page-link"><router-link to="#">My Inbox</router-link></li>
+        <li class="page-link">
+          <v-menu bottom right>
+              <v-chip outline slot="activator">
+                <v-avatar class="teal">SB</v-avatar>
+                Storm Burpee
+              </v-chip>
+              <v-list class="dropdown-list">
+                <v-list-tile @click="">
+                  <v-list-tile-title><router-link to="/employee/1">My Details</router-link></v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile @click="">
+                  <v-list-tile-title><router-link to="#">Personal Settings</router-link></v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile @click="">
+                  <v-list-tile-title><router-link to="#">Company Settings</router-link></v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile @click="">
+                  <v-list-tile-title><router-link to="#" v-on:click="logout()">Log Out</router-link></v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+        </li>
+      </ul>
+    </header>
+    <header v-else class="hr-header loggedout">
+      <div class="page-header">StormCloud<span>HR</span></div>
+    </header>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'hr-header'
+  name: 'hr-header',
+  data () {
+    return {
+    }
+  },
+  methods: {
+    logout () {
+      this.$state.commit('logout')
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 
@@ -57,6 +72,23 @@ export default {
     color: #fff;
     background-color: #355FDA;
     padding: 0 50px;
+    &.loggedout {
+      background-color: #fff;
+      //height: 70px;
+      //line-height: 70px;
+      color: #355FDA;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      & .page-header {
+        font-weight: 300;
+        font-size: 18px;
+        margin-right: 30px;
+        & span {
+          font-weight: 600;
+        }
+      }
+    }
+
     & ul {
       padding: 0;
       margin: 0;
