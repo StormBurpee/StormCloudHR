@@ -102,8 +102,9 @@ class Employee extends Model {
   }
 
   getLocation(id) {
-    //return new Promise((resolve, reject) => {
-      this.db.query("SELECT * FROM locations WHERE location_id="+id, (err, rows) => {
+    let employee = this;
+    return new Promise((resolve, reject) => {
+      employee.db.query("SELECT * FROM locations WHERE location_id="+id, (err, rows) => {
         let row = rows[0];
         return {
           location_name: row.name,
@@ -114,7 +115,7 @@ class Employee extends Model {
           postcode: row.postal_code
         };
       });
-    //});
+    });
   }
 
   getEmployee(id) {
@@ -138,19 +139,21 @@ class Employee extends Model {
               let jobdetails = {};
               for(var j = 0; j < rows.length; j++) {
                 let job = rows[j];
-                jobdetails = {
-                  title: job.job_title,
-                  location: employee.getLocation(job.location_id),
-                  department: job.department_id,
-                  status: employee.getEmploymentType(job.employment_type),
-                  manager: "Propagate("+job.manager_id+")",
-                  pay_rate: job.pay_rate,
-                  pay_currency: job.pay_currency,
-                  pay_type: employee.getPayType(job.pay_type),
-                  pay_frequency: employee.getPayFrequency(job.pay_frequency),
-                  commision: job.commision,
-                  bonus_structure: job.bonus_structure
-                }
+                employee.getLocation(job.location_id).then(resp => {
+                  jobdetails = {
+                    title: job.job_title,
+                    location: employee.getLocation(job.location_id),
+                    department: job.department_id,
+                    status: employee.getEmploymentType(job.employment_type),
+                    manager: "Propagate("+job.manager_id+")",
+                    pay_rate: job.pay_rate,
+                    pay_currency: job.pay_currency,
+                    pay_type: employee.getPayType(job.pay_type),
+                    pay_frequency: employee.getPayFrequency(job.pay_frequency),
+                    commision: job.commision,
+                    bonus_structure: job.bonus_structure
+                  }
+                });
               }
               let address = {
                 line1: row.address_line_1,
@@ -198,19 +201,21 @@ class Employee extends Model {
               db.query("SELECT * FROM job_details WHERE employee_id="+row.employee_id, (err, rows) => {
                 for(var j = 0; j < rows.length; j++) {
                   let job = rows[j];
-                  jobdetails = {
-                    title: job.job_title,
-                    location: employee.getLocation(job.location_id),
-                    department: job.department_id,
-                    status: employee.getEmploymentType(job.employment_type),
-                    manager: "Propagate("+job.manager_id+")",
-                    pay_rate: job.pay_rate,
-                    pay_currency: job.pay_currency,
-                    pay_type: employee.getPayType(job.pay_type),
-                    pay_frequency: employee.getPayFrequency(job.pay_frequency),
-                    commision: job.commision,
-                    bonus_structure: job.bonus_structure
-                  }
+                  employee.getLocation(job.location_id).then(resp => {
+                    jobdetails = {
+                      title: job.job_title,
+                      location: employee.getLocation(job.location_id),
+                      department: job.department_id,
+                      status: employee.getEmploymentType(job.employment_type),
+                      manager: "Propagate("+job.manager_id+")",
+                      pay_rate: job.pay_rate,
+                      pay_currency: job.pay_currency,
+                      pay_type: employee.getPayType(job.pay_type),
+                      pay_frequency: employee.getPayFrequency(job.pay_frequency),
+                      commision: job.commision,
+                      bonus_structure: job.bonus_structure
+                    }
+                  });
                 }
                 let address = {
                   line1: row.address_line_1,
