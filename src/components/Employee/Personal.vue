@@ -11,7 +11,7 @@
         <strong class="employee-detail-name">{{employee.first}} {{employee.last}}</strong>
         <div class="user-detail">
           <span class="overview">Location</span><br>
-          {{employee.jobdetails.location}}
+          {{employee.jobdetails.location.location_name}}
         </div>
         <div class="user-detail">
           <span class="overview">Status</span><br>

@@ -80,7 +80,7 @@ export default {
           last: employee.last,
           first: employee.first,
           title: employee.jobdetails.title,
-          location: employee.jobdetails.location,
+          location: employee.jobdetails.location.location_name,
           status: employee.jobdetails.status
         })
       }
