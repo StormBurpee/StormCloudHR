@@ -29,7 +29,7 @@ class Employee extends Model {
   }
 
   getEmploymentType(employment_type) {
-    let types = ["Full Time", "Part Time", "Casual", "Temp", "Intern", "Volunteer", "Contactor"];
+    let types = ["Full Time", "Part Time", "Casual", "Temp", "Intern", "Volunteer", "Contractor"];
     return types[employment_type];
   }
 
@@ -227,7 +227,7 @@ class Employee extends Model {
     let rclient = this.rclient;
     let employee = this;
     return new Promise((resolve, reject) => {
-      rclient.hgetall('stormcellhr_employeesd_'+company, function(err, object) {
+      rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
         if(object != null && object.employees != null) {
           console.log("Received Employees from Redis Cache");
           resolve(JSON.parse(object.employees));
