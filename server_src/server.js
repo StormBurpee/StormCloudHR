@@ -112,7 +112,6 @@ router.post("/user/login", function(request, response) {
   let user = new User(rclient, db, Q, passwordhash, employee);
   if(request.body.email && request.body.password) {
     user.login(request.body.email, request.body.password).then(resp => {
-      console.log(resp);
       if(resp.error && resp.error == 1) {
         response.json(resp);
         return;

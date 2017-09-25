@@ -9,6 +9,8 @@
           <v-flex xs12 class="employee-detail-overview">
               <v-text-field
               label="Email"
+              v-model="email"
+              type="email"
               required
             ></v-text-field>
           </v-flex>
@@ -16,6 +18,7 @@
               <v-text-field
               label="Password"
               type="password"
+              v-model="password"
               required
             ></v-text-field>
           </v-flex>
@@ -29,10 +32,26 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'login',
   title () {
     return 'StormCellHR - Login'
+  },
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    login () {
+      axios.post('http://stormcloudhr.com:3000/user/login', {email: this.email, password: this.password})
+      .then(response => {
+        console.log(response)
+      })
+    }
   }
 }
 </script>
