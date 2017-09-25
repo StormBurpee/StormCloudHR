@@ -9,14 +9,13 @@
           <v-flex xs12 class="employee-detail-overview">
               <v-text-field
               label="Email"
-              v-model="email"
               required
             ></v-text-field>
           </v-flex>
           <v-flex xs12 class="employee-detail-overview">
               <v-text-field
               label="Password"
-              v-model="password"
+              type="password"
               required
             ></v-text-field>
           </v-flex>

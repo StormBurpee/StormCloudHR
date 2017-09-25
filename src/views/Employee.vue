@@ -30,9 +30,7 @@
             key="Job"
             id="Job"
           >
-            <v-card flat>
-              <v-card-text>Job</v-card-text>
-            </v-card>
+            <employee-job></employee-job>
           </v-tabs-content>
           <v-tabs-content
             key="Time Off"
@@ -75,6 +73,7 @@
 
 <script>
 import Personal from '@/components/Employee/Personal'
+import Job from '@/components/Employee/Job'
 
 export default {
   name: 'employee',
@@ -85,7 +84,8 @@ export default {
     }
   },
   components: {
-    'employee-personal': Personal
+    'employee-personal': Personal,
+    'employee-job': Job
   }
 }
 </script>

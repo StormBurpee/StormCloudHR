@@ -28,7 +28,7 @@
                   <v-list-tile-title><router-link to="#">Company Settings</router-link></v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile @click="">
-                  <v-list-tile-title><router-link to="#" v-on:click="logout()">Log Out</router-link></v-list-tile-title>
+                  <v-list-tile-title v-on:click="logout()">Log Out</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     logout () {
-      this.$state.commit('logout')
+      this.$store.commit('logout')
       this.$router.push('/login')
     }
   }

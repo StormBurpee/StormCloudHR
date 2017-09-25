@@ -39,7 +39,7 @@ class Employee extends Model {
   }
 
   getPayFrequency(pay_frequency) {
-    let types = ["Annually", "Monthly", "Semimonthly", "BiWeekly", "Weekly", "Daily"];
+    let types = ["Annually", "Monthly", "Semimonthly", "Biweekly", "Weekly", "Daily"];
     return types[pay_frequency];
   }
 
