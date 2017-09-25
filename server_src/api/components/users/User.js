@@ -9,6 +9,7 @@ class User extends Model {
     this.employee = {};
     this.email = ""
     this.userlevel = 4; // 1 = owner, 2 = location manager, 3 = manager, 4 = employee
+    this.debug_mode = true;
   }
 
   login(email, password) {
@@ -18,15 +19,20 @@ class User extends Model {
       thisUser.db.query("SELECT * FROM users WHERE email='"+email+"'", (err, rows) => {
         if(rows.length > 0) {
           let user = rows[0];
+          thisUser.debug("Found User");
+          thisUser.debug(user);
           if(thisUser.passwordhash.verify(password, user.password)) {
+            thisUser.debug("Password was verified");
             let actualUser = new User(thisUser.rclient, thisUser.db, thisUser.q, thisUser.passwordhash, thisUser.employeeRef);
             actualUser.email = email,
             actualUser.userlevel = user.user_level;
             thisUser.employeeRef.getEmployee(user.employee_id).then(resp => {
+              thisUser.debug("Retrieved employee of user.");
               actualUser.employee = resp;
               resolve(JSON.parse(JSON.stringify(actualUser)));
             });
           } else {
+            thisUser.debug("Password was incorret");
             resolve({error: 1, error_msg: "Wrong Password."})
           }
         } else {
