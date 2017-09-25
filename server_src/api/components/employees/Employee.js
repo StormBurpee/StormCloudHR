@@ -22,6 +22,9 @@ class Employee extends Model {
     this.email = "";
     this.jobdetails = {};
     this.address = {}
+    this.mobile = "";
+    this.work_mobile = "";
+    this.work_email = "";
   }
 
   getEmploymentType(employment_type) {
@@ -39,7 +42,7 @@ class Employee extends Model {
     return types[pay_frequency];
   }
 
-  newReturnEmployee(id, first, middle, last, email, gender, birthday, tfn, account_name, account_bsb, account_number, emc1_name, emc1_relationship, emc1_contact, emc2_name, emc2_relationship, emc2_contact, jobdetails, address) {
+  newReturnEmployee(id, first, middle, last, email, gender, mobile, work_mobile, work_email, birthday, tfn, account_name, account_bsb, account_number, emc1_name, emc1_relationship, emc1_contact, emc2_name, emc2_relationship, emc2_contact, jobdetails, address) {
     let newEmployee = new Employee(this.rclient, this.db);
     newEmployee.id = id;
     newEmployee.first = first;
@@ -62,6 +65,10 @@ class Employee extends Model {
 
     // Job Details
     newEmployee.jobdetails = jobdetails;
+
+    newEmployee.mobile = mobile;
+    newEmployee.work_mobile = work_mobile;
+    newEmployee.work_email = work_email;
 
     return newEmployee;
   }
@@ -87,7 +94,10 @@ class Employee extends Model {
         emc2_relationship: employee.emc2_relationship,
         emc2_contact: employee.emc2_contact,
         jobdetails: employee.jobdetails,
-        address: employee.address
+        address: employee.address,
+        mobile: employee.mobile,
+        work_mobile: employee.work_mobile,
+        work_email: employee.work_email
       }
   }
 
@@ -134,7 +144,7 @@ class Employee extends Model {
                 city: row.address_city,
                 postcode: row.address_post_code
               }
-              let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
+              let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
               returnEmployees.push(rEmp);
               rclient.hmset("stormcellhr_employee_"+id, {
                 employee: JSON.stringify(returnEmployees)
@@ -194,7 +204,7 @@ class Employee extends Model {
                   city: row.address_city,
                   postcode: row.address_post_code
                 }
-                let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
+                let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
                 returnEmployees.push( rEmp );
                 if(returnEmployees.length == erows) {
                   rclient.hmset("stormcellhr_employees_"+company, {
