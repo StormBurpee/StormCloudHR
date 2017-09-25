@@ -51,13 +51,27 @@ router.get('/', function(request, response) {
 router.get('/employees/:belongsto', function(request, response) {
   let belongs = request.params.belongsto;
   if(belongs == null) {
-    response.json({message: "Employee List", rows: null});
+    response.json({message: "Employee List", employees: null});
     return;
   }
 
   let employee = new Employee(rclient, db, Q);
   employee.getEmployees(belongs).then(resp => {
     response.json({message: "Employee List", employees: resp});
+  });
+});
+
+router.get('/locations/:belongsto', function(request, response) {
+  let belongs = request.params.belongsto;
+  if(belongs == null) {
+    response.json({message: "Location List", locations: null});
+    return;
+  }
+
+  //TODO: Factor into a location class, same thing with jobs
+  let employee = new Employee(rclient, db, Q);
+  employee.getLocations(belongs).then(resp => {
+    response.json({message:" Location List", locations: resp});
   });
 });
 

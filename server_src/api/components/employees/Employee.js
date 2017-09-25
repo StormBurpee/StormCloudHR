@@ -102,6 +102,27 @@ class Employee extends Model {
       }
   }
 
+  getLocations(belongsto) {
+    let employee = this;
+    return new Promise((resolve, reject) => {
+      employee.db.query("SELECT * FROM locations WHERE belongs_to="+belongsto, (err, rows) => {
+        let locations = [];
+        for(var i = 0; i < rows.length; i++) {
+          let row = rows[i];
+          locations.push({
+            location_name: row.location_name,
+            address: row.address,
+            country: row.country,
+            state: row.state,
+            city: row.city,
+            postcode: row.postal_code
+          });
+        }
+        resolve(locations);
+      });
+    });
+  }
+
   getJDLocation(id, jobdetails) {
     let employee = this;
     employee.debug("Getting Location");
