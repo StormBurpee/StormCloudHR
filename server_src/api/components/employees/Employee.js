@@ -165,7 +165,8 @@ class Employee extends Model {
                 postcode: row.address_post_code
               }
               console.log(promises);
-              employee.q.all(promises).done(function() {
+              employee.q.allSettled(promises).done(function() {
+                console.log("settled");
                 let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
                 returnEmployees.push(rEmp);
                 rclient.hmset("stormcellhr_employee_"+id, {
@@ -232,7 +233,8 @@ class Employee extends Model {
                   postcode: row.address_post_code
                 }
                 console.log(promises);
-                employee.q.all(promises).done(function() {
+                employee.q.allSettled(promises).done(function() {
+                  console.log("settled");
                   let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
                   returnEmployees.push(rEmp);
                   rclient.hmset("stormcellhr_employee_"+id, {
