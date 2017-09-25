@@ -103,7 +103,7 @@ class Employee extends Model {
 
   getLocation(id) {
     //return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM locations WHERE location_id="+id, (err, rows) => {
+      this.db.query("SELECT * FROM locations WHERE location_id="+id, (err, rows) => {
         let row = rows[0];
         return {
           location_name: row.name,
