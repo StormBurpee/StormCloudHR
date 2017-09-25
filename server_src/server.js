@@ -13,9 +13,9 @@ var corsOptions = {
 }
 
 //TODO: add an autoloader for models
-var Model = require('./api/components/model');
-var Employee = require('./api/components/employees/Employee');
-var User = require('./api/components/users/User');
+var Model     = require('./api/components/model');
+var Employee  = require('./api/components/employees/Employee');
+var User      = require('./api/components/users/User');
 
 var db = mysql.createConnection({
   host: "104.197.10.100",
