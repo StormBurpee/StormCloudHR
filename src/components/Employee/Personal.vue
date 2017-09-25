@@ -130,7 +130,8 @@ export default {
   name: 'employee-personal',
   data () {
     return {
-      employee: {}
+      employee: {},
+      locations: {}
     }
   },
   created () {

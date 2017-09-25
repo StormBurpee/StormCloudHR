@@ -1,9 +1,10 @@
-var express   = require('express');
-var redis     = require("redis");
-var bluebird  = require('bluebird');
-var mysql     = require('mysql');
-var cors      = require('cors');
-var Q         = require('q');
+var express       = require('express');
+var redis         = require("redis");
+var bluebird      = require('bluebird');
+var mysql         = require('mysql');
+var cors          = require('cors');
+var Q             = require('q');
+var passwordhash  = require('password-hash')
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -11,8 +12,10 @@ var corsOptions = {
   origin: "*"
 }
 
+//TODO: add an autoloader for models
 var Model = require('./api/components/model');
-var Employee = require('./api/components/employees/Employee')
+var Employee = require('./api/components/employees/Employee');
+var User = require('./api/components/users/User');
 
 var db = mysql.createConnection({
   host: "104.197.10.100",
@@ -95,6 +98,14 @@ router.post('/employees/new', function(request, response) {
   } else {
 
   }
+});
+
+router.post("/user/login", function(request, response) {
+
+});
+
+router.get("/user/register", function(request, response) {
+  response.json({message: "Sneaky sneaky password generation", password: passwordhash.generate('abigail12')});
 });
 
 app.use(cors(corsOptions));
