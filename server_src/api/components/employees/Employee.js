@@ -104,21 +104,34 @@ class Employee extends Model {
 
   getLocations(belongsto) {
     let employee = this;
+    let rclient = employee.rclient;
     return new Promise((resolve, reject) => {
-      employee.db.query("SELECT * FROM locations WHERE belongs_to="+belongsto, (err, rows) => {
-        let locations = [];
-        for(var i = 0; i < rows.length; i++) {
-          let row = rows[i];
-          locations.push({
-            location_name: row.location_name,
-            address: row.address,
-            country: row.country,
-            state: row.state,
-            city: row.city,
-            postcode: row.postal_code
+      rclient.hmgetall('stormcellhr_locations_'+belongsto, function(err, object){
+        if(object && object.locations) {
+          console.log("Retrieved locations form Redis Cache");
+          resolve(JSON.parse(object.locations));
+        } else {
+          console.log("Sending request for locations to DB.");
+          employee.db.query("SELECT * FROM locations WHERE belongs_to="+belongsto, (err, rows) => {
+            let locations = [];
+            for(var i = 0; i < rows.length; i++) {
+              let row = rows[i];
+              locations.push({
+                location_name: row.location_name,
+                address: row.address,
+                country: row.country,
+                state: row.state,
+                city: row.city,
+                postcode: row.postal_code
+              });
+            }
+            rclient.hmset("stormcellhr_locations_"+belongsto, {
+              locations: JSON.stringify(locations)
+            });
+            rclient.expire("stormcellhr_locations_"+belongsto, 600);
+            resolve(locations);
           });
         }
-        resolve(locations);
       });
     });
   }
