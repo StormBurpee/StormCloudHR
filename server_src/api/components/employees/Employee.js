@@ -2,7 +2,7 @@ var Model = require('../model');
 
 class Employee extends Model {
   constructor(rclient, db, q) {
-    super(rclient, db);
+    super(rclient, db, q);
     this.id = 0;
     this.first = "";
     this.middle = "";
