@@ -101,6 +101,22 @@ class Employee extends Model {
       }
   }
 
+  getLocation(id) {
+    //return new Promise((resolve, reject) => {
+      db.query("SELECT * FROM locations WHERE location_id="+id, (err, rows) => {
+        let row = rows[0];
+        return {
+          location_name: row.name,
+          address: row.address,
+          country: row.country,
+          state: row.state,
+          city: row.city,
+          postcode: row.postal_code
+        };
+      });
+    //});
+  }
+
   getEmployee(id) {
     let db = this.db;
     let rclient = this.rclient;
@@ -124,7 +140,7 @@ class Employee extends Model {
                 let job = rows[j];
                 jobdetails = {
                   title: job.job_title,
-                  location: "Propagate("+job.location_id+")",
+                  location: getLocaction(job.location_id),
                   department: job.department_id,
                   status: employee.getEmploymentType(job.employment_type),
                   manager: "Propagate("+job.manager_id+")",
