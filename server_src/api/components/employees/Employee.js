@@ -101,12 +101,12 @@ class Employee extends Model {
       }
   }
 
-  getLocation(id) {
+  getJDLocation(id, jobdetails) {
     let employee = this;
     return new Promise((resolve, reject) => {
       employee.db.query("SELECT * FROM locations WHERE location_id="+id, (err, rows) => {
         let row = rows[0];
-        return {
+        jobdetails.location = {
           location_name: row.name,
           address: row.address,
           country: row.country,
@@ -114,6 +114,7 @@ class Employee extends Model {
           city: row.city,
           postcode: row.postal_code
         };
+        return jobdetails;
       });
     });
   }
@@ -208,21 +209,20 @@ class Employee extends Model {
                 let promises = [];
                 for(var j = 0; j < rows.length; j++) {
                   let job = rows[j];
-                  promises.push(employee.getLocation(job.location_id).then(resp => {
-                    jobdetails = {
-                      title: job.job_title,
-                      location: employee.getLocation(job.location_id),
-                      department: resp,
-                      status: employee.getEmploymentType(job.employment_type),
-                      manager: "Propagate("+job.manager_id+")",
-                      pay_rate: job.pay_rate,
-                      pay_currency: job.pay_currency,
-                      pay_type: employee.getPayType(job.pay_type),
-                      pay_frequency: employee.getPayFrequency(job.pay_frequency),
-                      commision: job.commision,
-                      bonus_structure: job.bonus_structure
-                    }
-                  }));
+                  jobdetails = {
+                    title: job.job_title,
+                    location: {},
+                    department: resp,
+                    status: employee.getEmploymentType(job.employment_type),
+                    manager: "Propagate("+job.manager_id+")",
+                    pay_rate: job.pay_rate,
+                    pay_currency: job.pay_currency,
+                    pay_type: employee.getPayType(job.pay_type),
+                    pay_frequency: employee.getPayFrequency(job.pay_frequency),
+                    commision: job.commision,
+                    bonus_structure: job.bonus_structure
+                  }
+                  promises.push(employee.getJDLocation(job.location_id, jobdetails));
                 }
                 let address = {
                   line1: row.address_line_1,
@@ -233,8 +233,8 @@ class Employee extends Model {
                   postcode: row.address_post_code
                 }
                 console.log(promises);
-                employee.q.allSettled(promises).done(function() {
-                  console.log("settled");
+                employee.q.all(promises).done(function(values) {
+                  console.log("settled", values);
                   let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
                   returnEmployees.push(rEmp);
                   rclient.hmset("stormcellhr_employee_"+id, {
