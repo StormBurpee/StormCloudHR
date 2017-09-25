@@ -125,7 +125,7 @@ class Employee extends Model {
                 jobdetails = {
                   title: job.job_title,
                   location: "Propagate("+job.location_id+")",
-                  department: "Propagate("+job.department_id+")",
+                  department: job.department_id,
                   status: employee.getEmploymentType(job.employment_type),
                   manager: "Propagate("+job.manager_id+")",
                   pay_rate: job.pay_rate,
@@ -185,7 +185,7 @@ class Employee extends Model {
                   jobdetails = {
                     title: job.job_title,
                     location: "Propagate("+job.location_id+")",
-                    department: "Propagate("+job.department_id+")",
+                    department: job.department_id,
                     status: employee.getEmploymentType(job.employment_type),
                     manager: "Propagate("+job.manager_id+")",
                     pay_rate: job.pay_rate,
