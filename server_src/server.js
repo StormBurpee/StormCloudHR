@@ -4,9 +4,10 @@ var bluebird      = require('bluebird');
 var mysql         = require('mysql');
 var cors          = require('cors');
 var Q             = require('q');
-var passwordhash  = require('password-hash')
+var passwordhash  = require('password-hash');
 var bodyparser    = require('body-parser');
-var cookieparser  = require('cookie-parser')
+var cookieparser  = require('cookie-parser');
+var crypto        = require('crypto');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -107,7 +108,27 @@ router.post('/employees/new', function(request, response) {
 });
 
 router.post("/user/login", function(request, response) {
-
+  let employee = new Employee(rclient, db, Q);
+  let user = new User(rclient, db, Q, passwordhash, employee);
+  if(request.body.email && request.body.password) {
+    user.login(request.body.email, request.body.password).then(resp => {
+      if(resp.error && resp.error == 1) {
+        response.json(resp);
+        return;
+      } else {
+        let hash = crypto.createHash("sha256");
+        let userHash = hash.update(request.body.email + new Date()).digest('hex');
+        let key = "stormcellhr_user_loggedin:"+userHash;
+        console.log("User logged in with hash, " + key);
+        rclient.set(key, request.body.email);
+        rclient.expire(key, 30);
+        response.cookie("user", userHash, {maxAge: 30});
+        response.json({message: "User Login", user: resp});
+      }
+    });
+  } else {
+    response.json({error: 1, message: "Please supply Email and Password"});
+  }
 });
 
 router.get("/user/genpass/:password", function(request, response) {
@@ -117,6 +138,20 @@ router.get("/user/genpass/:password", function(request, response) {
 
 router.get("/user/register", function(request, response) {
 
+});
+
+router.get("/user/loggedin", function(request, response) {
+  if(request.cookies.user) {
+    rclient.getAsync('stormcellhr_user_loggedin:'+request.cookies.user).then(resp => {
+      if(resp != null) {
+        response.json({loggedin: true});
+      } else {
+        response.json({loggedin: false});
+      }
+    });
+  } else {
+    response.json({loggedin: false});
+  }
 });
 
 app.use(cors(corsOptions));
