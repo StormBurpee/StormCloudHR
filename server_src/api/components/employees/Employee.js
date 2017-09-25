@@ -105,7 +105,7 @@ class Employee extends Model {
   getJDLocation(id, jobdetails) {
     let employee = this;
     employee.debug("Getting Location");
-    employe.debug("Location ID: " + id);
+    employee.debug("Location ID: " + id);
     return new Promise((resolve, reject) => {
       employee.db.query("SELECT * FROM locations WHERE location_id="+id, (err, rows) => {
         let row = rows[0];
