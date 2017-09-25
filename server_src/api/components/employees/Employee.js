@@ -200,7 +200,7 @@ class Employee extends Model {
                   let job = rows[j];
                   jobdetails = {
                     title: job.job_title,
-                    location: "Propagate("+job.location_id+")",
+                    location: getLocaction(job.location_id),
                     department: job.department_id,
                     status: employee.getEmploymentType(job.employment_type),
                     manager: "Propagate("+job.manager_id+")",
