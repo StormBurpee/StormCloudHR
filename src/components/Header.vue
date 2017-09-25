@@ -11,12 +11,26 @@
     <ul class="pull-right">
       <li class="page-link"><router-link to="#">My Inbox</router-link></li>
       <li class="page-link">
-        <router-link to="#">
-          <v-chip outline>
-            <v-avatar class="teal">SB</v-avatar>
-            Storm Burpee
-          </v-chip>
-        </router-link>
+        <v-menu bottom right>
+            <v-chip outline slot="activator">
+              <v-avatar class="teal">SB</v-avatar>
+              Storm Burpee
+            </v-chip>
+            <v-list class="dropdown-list">
+              <v-list-tile @click="">
+                <v-list-tile-title><router-link to="/employee/1">My Details</router-link></v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile @click="">
+                <v-list-tile-title><router-link to="#">Personal Settings</router-link></v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile @click="">
+                <v-list-tile-title><router-link to="#">Company Settings</router-link></v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile @click="">
+                <v-list-tile-title><router-link to="#">Log Out</router-link></v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
       </li>
     </ul>
   </header>
@@ -77,6 +91,12 @@ export default {
           }
         }
       }
+    }
+  }
+
+  .dropdown-list {
+    & a {
+      color: #212121;
     }
   }
 </style>

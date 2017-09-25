@@ -43,7 +43,7 @@ body {
   max-width: 100%;
 }
 a {
-  color: inherit;
+  //color: inherit!important;
   text-decoration: none;
 }
 .page-subheader {
@@ -51,6 +51,7 @@ a {
   font-weight: 300;
   padding: 0px;
   margin: 0px;
+  color: #fff;
 }
 .our-primary {
   background-color: #4D73E3!important;

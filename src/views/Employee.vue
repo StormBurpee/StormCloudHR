@@ -8,7 +8,7 @@
     <div class="employee-directory-main">
 
       <v-tabs dark v-model="active">
-        <v-tabs-bar class="our-primary">
+        <v-tabs-bar class="our-primary employee-tab">
           <v-tabs-item
             v-for="tab in tabs"
             :key="tab"
@@ -92,5 +92,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-
+  .employee-tab {
+    color: #fff;
+  }
 </style>
