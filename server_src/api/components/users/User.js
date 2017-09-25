@@ -9,12 +9,12 @@ class User extends Model {
     this.employee = {};
     this.email = ""
     this.userlevel = 4; // 1 = owner, 2 = location manager, 3 = manager, 4 = employee
-    this.debug_mode = true;
+    this.debug_mode = false;
   }
 
   login(email, password) {
     let thisUser = this;
-    return new Promise((reject, resolve) => {
+    return new Promise((resolve, reject) => {
       console.log("User " + email + " attempting login.");
       thisUser.db.query("SELECT * FROM users WHERE email='"+email+"'", (err, rows) => {
         if(rows.length > 0) {

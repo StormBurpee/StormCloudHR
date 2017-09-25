@@ -126,8 +126,6 @@ router.post("/user/login", function(request, response) {
         response.cookie("user", userHash, {maxAge: 30});
         response.json({message: "User Login", user: resp});
       }
-    }).catch(function(e){
-      console.log("Shit", e);
     });
   } else {
     response.json({error: 1, message: "Please supply Email and Password"});
