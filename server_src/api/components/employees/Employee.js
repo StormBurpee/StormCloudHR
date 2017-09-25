@@ -106,7 +106,7 @@ class Employee extends Model {
     let employee = this;
     let rclient = employee.rclient;
     return new Promise((resolve, reject) => {
-      rclient.hmgetall('stormcellhr_locations_'+belongsto, function(err, object){
+      rclient.hgetall('stormcellhr_locations_'+belongsto, function(err, object){
         if(object && object.locations) {
           console.log("Retrieved locations form Redis Cache");
           resolve(JSON.parse(object.locations));
