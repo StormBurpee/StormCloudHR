@@ -25,7 +25,7 @@ class Employee extends Model {
     this.mobile = "";
     this.work_mobile = "";
     this.work_email = "";
-    this.debug_mode = true;
+    this.debug_mode = false;
   }
 
   getEmploymentType(employment_type) {
@@ -245,10 +245,10 @@ class Employee extends Model {
                   returnEmployees.push(rEmp);
                   employee.debug(returnEmployees.length + " " + erows);
                   if(returnEmployees.length == erows) {
-                    rclient.hmset("stormcellhr_employees_"+company, {
+                    rclient.hmset('stormcellhr_employees_'+company, {
                       employee: JSON.stringify(returnEmployees)
                     });
-                    rclient.expire("stormcellhr_employees_"+company, 240);
+                    rclient.expire('stormcellhr_employees_'+company, 240);
                     resolve(returnEmployees);
                   }
                 });
