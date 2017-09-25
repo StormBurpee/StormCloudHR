@@ -23,7 +23,7 @@
             ></v-text-field>
           </v-flex>
           <v-flex xs12 class="employee-detail-overview login-btn">
-            <v-btn class="blue white-font" block>Login</v-btn>
+            <v-btn class="blue white-font" block v-on:click="login()">Login</v-btn>
           </v-flex>
         </v-layout>
       </div>

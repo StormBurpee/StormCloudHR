@@ -123,7 +123,7 @@ router.post("/user/login", function(request, response) {
         rclient.set(key, request.body.email);
         rclient.expire(key, 30);
         response.cookie("user", userHash, {maxAge: 30});
-        response.json({message: "User Login", user: resp});
+        response.json({message: "User Login", user: resp}).send();
       }
     });
   } else {
