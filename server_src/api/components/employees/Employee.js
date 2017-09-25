@@ -246,7 +246,7 @@ class Employee extends Model {
                   rclient.hmset("stormcellhr_employee_"+id, {
                     employee: JSON.stringify(returnEmployees)
                   });
-                  rclient.expire("stormcellhr_employee_"+id, 240);
+                  rclient.expire("stormcellhr_employees_"+company, 240);
                   resolve(returnEmployees);
                 });
               });
