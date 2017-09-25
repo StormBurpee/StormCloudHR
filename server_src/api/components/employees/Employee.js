@@ -137,7 +137,8 @@ class Employee extends Model {
             let row = rows[0];
             db.query("SELECT * FROM job_details WHERE employee_id="+id, (err, rows) => {
               let jobdetails = {};
-              for(var j = 0; j < rows.length; j++) {
+              let j = 0;
+              while(j < rows.length) {
                 let job = rows[j];
                 employee.getLocation(job.location_id).then(resp => {
                   jobdetails = {
@@ -153,6 +154,7 @@ class Employee extends Model {
                     commision: job.commision,
                     bonus_structure: job.bonus_structure
                   }
+                  j++;
                 });
               }
               let address = {
@@ -199,7 +201,8 @@ class Employee extends Model {
               let jobdetails = {};
               let erows = rows.length;
               db.query("SELECT * FROM job_details WHERE employee_id="+row.employee_id, (err, rows) => {
-                for(var j = 0; j < rows.length; j++) {
+                let j = 0;
+                while(j < rows.length) {
                   let job = rows[j];
                   employee.getLocation(job.location_id).then(resp => {
                     jobdetails = {
@@ -215,6 +218,7 @@ class Employee extends Model {
                       commision: job.commision,
                       bonus_structure: job.bonus_structure
                     }
+                    j++;
                   });
                 }
                 let address = {
