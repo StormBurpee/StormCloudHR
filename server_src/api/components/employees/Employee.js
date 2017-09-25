@@ -246,7 +246,7 @@ class Employee extends Model {
                   employee.debug(returnEmployees.length + " " + erows);
                   if(returnEmployees.length == erows) {
                     rclient.hmset('stormcellhr_employees_'+company, {
-                      employee: JSON.stringify(returnEmployees)
+                      employees: JSON.stringify(returnEmployees)
                     });
                     rclient.expire('stormcellhr_employees_'+company, 240);
                     resolve(returnEmployees);
