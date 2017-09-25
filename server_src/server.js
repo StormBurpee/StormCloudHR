@@ -3,6 +3,7 @@ var redis     = require("redis");
 var bluebird  = require('bluebird');
 var mysql     = require('mysql');
 var cors      = require('cors');
+var q         = require('q');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -54,7 +55,7 @@ router.get('/employees/:belongsto', function(request, response) {
     return;
   }
 
-  let employee = new Employee(rclient, db);
+  let employee = new Employee(rclient, db, q);
   employee.getEmployees(belongs).then(resp => {
     response.json({message: "Employee List", employees: resp});
   });
@@ -67,7 +68,7 @@ router.get('/employee/:id', function(request, response) {
     return;
   }
 
-  let employee = new Employee(rclient, db);
+  let employee = new Employee(rclient, db, q);
   employee.getEmployee(id).then(resp => {
     response.json({message: "Employee", employee: resp});
     return response;
