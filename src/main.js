@@ -13,7 +13,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    loggedin: true
+    loggedin: true,
+    company_id: 1
   },
   mutations: {
     login (state) {
@@ -21,11 +22,15 @@ const store = new Vuex.Store({
     },
     logout (state) {
       state.loggedin = false
+    },
+    setCompany (state, companyId) {
+      state.company_id = companyId
     }
   }
 })
 
 store.commit('login')
+store.commit('setCompany', 1)
 
 /* eslint-disable no-new */
 new Vue({

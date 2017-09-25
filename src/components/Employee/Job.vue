@@ -91,6 +91,27 @@ export default {
       console.log(e)
       // this.errors.push(e)
     })
+  },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData () {
+      this.error = this.post = null
+      this.loading = true
+      // replace `getPost` with your data fetching util / API wrapper
+      axios.get('http://stormcloudhr.com:3000/employee/' + this.$route.params.id)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.employee = response.data.employee[0]
+        console.log(this.employee)
+      })
+      .catch(e => {
+        console.log(e)
+        // this.errors.push(e)
+      })
+    }
   }
 }
 </script>

@@ -2,7 +2,16 @@
   <div class="employee-container view">
     <div class="hr-subheader">
       <div class="page-subheader">
-        Employee
+
+        <v-menu bottom right>
+          <div slot="activator">Employees</div>
+          <v-list class="dropdown-list">
+            <v-list-tile @click="" v-for="employee in employees">
+              <router-link :to="employee.url"><v-list-tile-title>{{employee.first}} {{employee.last}}</v-list-tile-title></router-link>
+            </v-list-tile>
+            </v-list-tile>
+          </v-list>
+          </v-menu>
       </div>
     </div>
     <div class="employee-directory-main">
@@ -72,6 +81,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Personal from '@/components/Employee/Personal'
 import Job from '@/components/Employee/Job'
 
@@ -80,12 +90,35 @@ export default {
   data () {
     return {
       tabs: ['Personal', 'Job', 'Time Off', 'Banking', 'Emergency', 'Notes'],
-      active: null
+      active: null,
+      employees: []
     }
   },
   components: {
     'employee-personal': Personal,
     'employee-job': Job
+  },
+  created () {
+    axios.get('http://stormcloudhr.com:3000/employees/' + this.$store.state.company_id)
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.employees = []
+      for (var i = 0; i < response.data.employees.length; i++) {
+        let employee = response.data.employees[i]
+        this.employees.push({
+          url: '/employee/' + employee.id,
+          last: employee.last,
+          first: employee.first,
+          title: employee.jobdetails.title,
+          location: employee.jobdetails.location.location_name,
+          status: employee.jobdetails.status
+        })
+      }
+    })
+    .catch(e => {
+      console.log(e)
+      // this.errors.push(e)
+    })
   }
 }
 </script>
@@ -94,5 +127,11 @@ export default {
 <style lang="scss">
   .employee-tab {
     color: #fff;
+  }
+
+  .dropdown-list {
+    & a {
+      color: #212121;
+    }
   }
 </style>

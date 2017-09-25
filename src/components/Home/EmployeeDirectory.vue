@@ -69,7 +69,7 @@ export default {
     }
   },
   created () {
-    axios.get('http://stormcloudhr.com:3000/employees/1')
+    axios.get('http://stormcloudhr.com:3000/employees/' + this.$store.state.company_id)
     .then(response => {
       // JSON responses are automatically parsed.
       this.items = []
