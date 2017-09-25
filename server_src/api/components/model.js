@@ -3,6 +3,12 @@ class Model {
     this.rclient = rclient;
     this.db = db;
     this.q = q;
+    this.debug_mode = false;
+  }
+
+  debug(message) {
+    if(this.debug_mode)
+      console.log(message);
   }
 }
 

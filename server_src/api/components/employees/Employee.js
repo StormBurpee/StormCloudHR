@@ -25,6 +25,7 @@ class Employee extends Model {
     this.mobile = "";
     this.work_mobile = "";
     this.work_email = "";
+    this.debug_mode = true;
   }
 
   getEmploymentType(employment_type) {
@@ -103,9 +104,13 @@ class Employee extends Model {
 
   getJDLocation(id, jobdetails) {
     let employee = this;
+    employee.debug("Getting Location");
+    employe.debug("Location ID: " + id);
     return new Promise((resolve, reject) => {
       employee.db.query("SELECT * FROM locations WHERE location_id="+id, (err, rows) => {
         let row = rows[0];
+        employee.debug("Found Location: ");
+        employee.debug(row);
         jobdetails.location = {
           location_name: row.name,
           address: row.address,
@@ -114,7 +119,7 @@ class Employee extends Model {
           city: row.city,
           postcode: row.postal_code
         };
-        return jobdetails;
+        resolve( jobdetails );
       });
     });
   }
@@ -164,9 +169,10 @@ class Employee extends Model {
                 city: row.address_city,
                 postcode: row.address_post_code
               }
-              console.log(promises);
+              employee.debug(promises);
               employee.q.all(promises).done(function(values) {
-                console.log("settled", values);
+                employee.debug("settled");
+                employee.debug(values);
                 let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
                 returnEmployees.push(rEmp);
                 rclient.hmset("stormcellhr_employee_"+id, {
@@ -231,9 +237,10 @@ class Employee extends Model {
                   city: row.address_city,
                   postcode: row.address_post_code
                 }
-                console.log(promises);
+                employee.debug(promises);
                 employee.q.all(promises).done(function(values) {
-                  console.log("settled", values);
+                  employee.debug("settled");
+                  employee.debug(values);
                   let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
                   returnEmployees.push(rEmp);
                   rclient.hmset("stormcellhr_employee_"+id, {
