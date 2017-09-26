@@ -8,7 +8,7 @@ class User extends Model {
 
     this.employee = {};
     this.email = ""
-    this.userlevel = 4; // 1 = owner, 2 = location manager, 3 = manager, 4 = employee
+    this.userlevel = 4; // 0 = owner, 1 = admin, 2 = location manager, 3 = manager, 4 = employee
     this.debug_mode = false;
   }
 

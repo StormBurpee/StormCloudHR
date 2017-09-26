@@ -69,7 +69,7 @@ export default {
           this.error = false
           this.errormsg = ''
           this.$store.commit('login', user)
-          // this.$router.push('/employees')
+          this.$router.push('/employees')
         }
       })
     }

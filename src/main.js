@@ -25,7 +25,6 @@ const store = new Vuex.Store({
   mutations: {
     login (state, user) {
       state.loggedin = true
-      console.log(user)
       state.company_id = user.user.employee.belongsto
       state.myuser = user.user
       state.hash = user.hash
@@ -48,7 +47,6 @@ const store = new Vuex.Store({
         if (state.loggedin === true) {
           state.company_id = resp.data.user.employee.belongsto
           state.myuser = resp.data.user
-          console.log(state)
         } else {
           router.push('/login')
         }

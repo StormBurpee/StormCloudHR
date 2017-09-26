@@ -14,17 +14,17 @@
         <li class="page-link">
           <v-menu bottom right>
               <v-chip outline slot="activator">
-                <v-avatar class="teal">SB</v-avatar>
-                Storm Burpee
+                <v-avatar class="teal">{{this.$store.state.myuser.employee.first.slice(0, 1)}}{{this.$store.state.myuser.employee.last.slice(0,1)}}</v-avatar>
+                {{this.$store.state.myuser.employee.first}} {{this.$store.state.myuser.employee.last}}
               </v-chip>
               <v-list class="dropdown-list">
                 <v-list-tile @click="">
-                  <router-link to="/employee/1"><v-list-tile-title>My Details</v-list-tile-title></router-link>
+                  <router-link :to="myurl"><v-list-tile-title>My Details</v-list-tile-title></router-link>
                 </v-list-tile>
                 <v-list-tile @click="">
                   <router-link to="#"><v-list-tile-title>Personal Settings</v-list-tile-title></router-link>
                 </v-list-tile>
-                <v-list-tile @click="">
+                <v-list-tile @click="" v-if="this.$store.state.myuser.userlevel < 2">
                   <router-link to="#"><v-list-tile-title>Company Settings</v-list-tile-title></router-link>
                 </v-list-tile>
                 <v-list-tile @click="">
@@ -46,6 +46,12 @@ export default {
   name: 'hr-header',
   data () {
     return {
+      myurl: '/employee/' + this.$store.state.myuser.employee.id
+    }
+  },
+  watch: {
+    '$store.state.myuser.employee.id': function (newid) {
+      this.myurl = '/employee/' + this.$store.state.myuser.employee.id
     }
   },
   methods: {
