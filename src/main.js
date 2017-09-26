@@ -25,7 +25,8 @@ const store = new Vuex.Store({
   mutations: {
     login (state, user) {
       state.loggedin = true
-      state.company_id = user.user.belongsto
+      console.log(user)
+      state.company_id = user.user.employee.belongsto
       state.myuser = user.user
       state.hash = user.hash
       Vue.cookie.set('userhash', user.hash, {expires: '1h'})
