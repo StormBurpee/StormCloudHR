@@ -1,5 +1,5 @@
 <template>
-  <div class="employee-container view">
+  <div class="employee-container view" v-if="this.$store.state.loggedin">
     <div class="hr-subheader">
       <div class="page-subheader">
 
@@ -99,6 +99,7 @@ export default {
     'employee-job': Job
   },
   created () {
+    this.$store.commit('checkLogin')
     axios.get('http://stormcloudhr.com:3000/employees/' + this.$store.state.company_id)
     .then(response => {
       // JSON responses are automatically parsed.

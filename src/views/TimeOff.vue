@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container view">
+  <div class="home-container view" v-if="this.$store.state.loggedin">
     <div class="hr-subheader">
       <div class="page-subheader">
         Time Off
@@ -16,6 +16,9 @@ export default {
   name: 'time-off',
   title () {
     return 'StormCellHR - Time Off'
+  },
+  created () {
+    this.$store.commit('checkLogin')
   }
 }
 </script>

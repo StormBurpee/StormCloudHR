@@ -12,6 +12,7 @@
               v-model="email"
               type="email"
               required
+              @keyup.enter.native="login()"
             ></v-text-field>
           </v-flex>
           <v-flex xs12 class="employee-detail-overview">
@@ -20,6 +21,7 @@
               type="password"
               v-model="password"
               required
+              @keyup.enter.native="login()"
             ></v-text-field>
           </v-flex>
           <v-flex xs12 class="employee-detail-overview login-btn">
