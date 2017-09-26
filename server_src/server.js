@@ -131,6 +131,18 @@ router.post("/user/login", function(request, response) {
   }
 });
 
+router.get("/user/byemail/:email", function(request, response) {
+  let employee = new Employee(rclient, db, Q);
+  let user = new User(rclient, db, Q, passwordhash, employee);
+  if(request.params.email) {
+    user.getUserByEmail(request.params.email).then(resp => {
+      response.json({user: resp});
+    });
+  } else {
+    response.json({user: null});
+  }
+});
+
 router.get("/user/genpass/:password", function(request, response) {
   let pass = request.params.password;
   response.json({message: "Sneaky sneaky password generation", password: passwordhash.generate(pass)});

@@ -12,6 +12,27 @@ class User extends Model {
     this.debug_mode = false;
   }
 
+  getUserByEmail(email) {
+    let thisUser = this;
+    return new Promise((resolve, reject) => {
+      thisUser.db.query("SELECT * FROM users WHERE email='"+email+"'", (err, rows) => {
+        if (rows.length > 0) {
+          let user = rows[0];
+          let actualUser = new User(thisUser.rclient, thisUser.db, thisUser.q, thisUser.passwordhash, thisUser.employeeRef);
+          actualUser.email = email,
+          actualUser.userlevel = user.user_level;
+          thisUser.employeeRef.getEmployee(user.employee_id).then(resp => {
+            thisUser.debug("Retrieved employee of user.");
+            actualUser.employee = resp;
+            resolve(JSON.parse(JSON.stringify(actualUser)));
+          });
+        } else {
+          resolve({});
+        }
+      });
+    });
+  }
+
   login(email, password) {
     let thisUser = this;
     return new Promise((resolve, reject) => {
