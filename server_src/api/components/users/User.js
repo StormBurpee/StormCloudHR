@@ -24,7 +24,7 @@ class User extends Model {
           actualUser.userlevel = user.user_level;
           thisUser.employeeRef.getEmployee(user.employee_id).then(resp => {
             thisUser.debug("Retrieved employee of user.");
-            actualUser.employee = resp;
+            actualUser.employee = resp[0];
             resolve(JSON.parse(JSON.stringify(actualUser)));
           });
         } else {
