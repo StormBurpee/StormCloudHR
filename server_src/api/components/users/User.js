@@ -22,7 +22,7 @@ class User extends Model {
           let actualUser = new User(thisUser.rclient, thisUser.db, thisUser.q, thisUser.passwordhash, thisUser.employeeRef);
           actualUser.email = email,
           actualUser.userlevel = user.user_level;
-          thisUser.employeeRef.getEmployee(user.employee_id).then(resp => {
+          thisUser.employeeRef.getEmployee(user.employee_id, true).then(resp => {
             thisUser.debug("Retrieved employee of user.");
             actualUser.employee = resp[0];
             resolve(JSON.parse(JSON.stringify(actualUser)));
@@ -48,7 +48,7 @@ class User extends Model {
             let actualUser = new User(thisUser.rclient, thisUser.db, thisUser.q, thisUser.passwordhash, thisUser.employeeRef);
             actualUser.email = email,
             actualUser.userlevel = user.user_level;
-            thisUser.employeeRef.getEmployee(user.employee_id).then(resp => {
+            thisUser.employeeRef.getEmployee(user.employee_id, true).then(resp => {
               thisUser.debug("Retrieved employee of user.");
               actualUser.employee = resp[0];
               resolve(JSON.parse(JSON.stringify(actualUser)));
