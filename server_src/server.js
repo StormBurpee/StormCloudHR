@@ -153,10 +153,14 @@ router.get("/user/register", function(request, response) {
 });
 
 router.get("/user/loggedin/:hash", function(request,response) {
+  let employee = new Employee(rclient, db, Q);
+  let user = new User(rclient, db, Q, passwordhash, employee);
   if(request.params.hash) {
     rclient.getAsync('stormcellhr_user_loggedin:'+request.params.hash).then(resp => {
       if(resp != null) {
-        response.json({loggedin: true, resp: resp});
+        user.getUserByEmail(resp).then(res => {
+          response.json({loggedin: true, user: res});
+        });
       } else {
         response.json({loggedin: false});
       }
