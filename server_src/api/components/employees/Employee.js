@@ -105,12 +105,12 @@ class Employee extends Model {
       }
   }
 
-  getLocations(belongsto) {
+  getLocations(belongsto, ignorecache = false) {
     let employee = this;
     let rclient = employee.rclient;
     return new Promise((resolve, reject) => {
       rclient.hgetall('stormcellhr_locations_'+belongsto, function(err, object){
-        if(object && object.locations) {
+        if(object && object.locations && ignorecache == false) {
           console.log("Retrieved locations form Redis Cache");
           resolve(JSON.parse(object.locations));
         } else {
@@ -161,13 +161,13 @@ class Employee extends Model {
     });
   }
 
-  getEmployee(id) {
+  getEmployee(id, ignorecache = false) {
     let db = this.db;
     let rclient = this.rclient;
     let employee = this;
     return new Promise((resolve, reject) => {
       rclient.hgetall('stormcellhr_employee_'+id, function(err, object) {
-        if(object != null && object.employee != null) {
+        if(object != null && object.employee != null && ignorecache == false) {
           console.log("Received Employee #"+id+" From Redis Cache.");
           resolve(JSON.parse(object.employee));
         } else {
@@ -225,13 +225,13 @@ class Employee extends Model {
     });
   }
 
-  getEmployees(company) {
+  getEmployees(company, ignorecache = false) {
     let db = this.db;
     let rclient = this.rclient;
     let employee = this;
     return new Promise((resolve, reject) => {
       rclient.hgetall('stormcellhr_employees_'+company, function(err, object) {
-        if(object != null && object.employees != null) {
+        if(object != null && object.employees != null && ignorecache == false) {
           console.log("Received Employees from Redis Cache");
           resolve(JSON.parse(object.employees));
         } else {
