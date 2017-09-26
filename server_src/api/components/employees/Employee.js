@@ -4,6 +4,7 @@ class Employee extends Model {
   constructor(rclient, db, q) {
     super(rclient, db, q);
     this.id = 0;
+    this.belongsto = 0;
     this.first = "";
     this.middle = "";
     this.last = "";
@@ -43,9 +44,10 @@ class Employee extends Model {
     return types[pay_frequency];
   }
 
-  newReturnEmployee(id, first, middle, last, email, gender, mobile, work_mobile, work_email, birthday, tfn, account_name, account_bsb, account_number, emc1_name, emc1_relationship, emc1_contact, emc2_name, emc2_relationship, emc2_contact, jobdetails, address) {
+  newReturnEmployee(id, belongsto, first, middle, last, email, gender, mobile, work_mobile, work_email, birthday, tfn, account_name, account_bsb, account_number, emc1_name, emc1_relationship, emc1_contact, emc2_name, emc2_relationship, emc2_contact, jobdetails, address) {
     let newEmployee = new Employee(this.rclient, this.db);
     newEmployee.id = id;
+    newEmployee.belongsto = belongsto;
     newEmployee.first = first;
     newEmployee.middle = middle;
     newEmployee.last = last;
@@ -78,6 +80,7 @@ class Employee extends Model {
     let employee = this;
       return {
         id: employee.id,
+        belongsto: employee.belongsto,
         first: employee.first,
         middle: employee.middle,
         last: employee.last,
@@ -207,7 +210,7 @@ class Employee extends Model {
               employee.q.all(promises).done(function(values) {
                 employee.debug("settled");
                 employee.debug(values);
-                let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
+                let rEmp = employee.newReturnEmployee(row.employee_id, row.belongs_to, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
                 returnEmployees.push(rEmp);
                 rclient.hmset("stormcellhr_employee_"+id, {
                   employee: JSON.stringify(returnEmployees)
@@ -275,7 +278,7 @@ class Employee extends Model {
                 employee.q.all(promises).done(function(values) {
                   employee.debug("settled");
                   employee.debug(values);
-                  let rEmp = employee.newReturnEmployee(row.employee_id, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
+                  let rEmp = employee.newReturnEmployee(row.employee_id, row.belongs_to, row.first, row.middle, row.last, row.email, row.gender, row.mobile, row.work_mobile, row.work_email, row.birthdate, row.tfn, row.account_name, row.account_bsb, row.account_number, row.emc1_name, row.emc1_relationship, row.emc1_contact, row.emc2_name, row.emc2_relationship, row.emc2_contact, jobdetails, address);
                   returnEmployees.push(rEmp);
                   employee.debug(returnEmployees.length + " " + erows);
                   if(returnEmployees.length == erows) {

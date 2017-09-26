@@ -20,10 +20,11 @@ const store = new Vuex.Store({
     hash: ''
   },
   mutations: {
-    login (state, hash) {
+    login (state, user) {
       state.loggedin = true
-      state.hash = hash
-      Vue.cookie.set('userhash', hash, { expires: '1h'})
+      state.company_id = user.user.belongsto
+      state.hash = user.hash
+      Vue.cookie.set('userhash', user.hash, { expires: '1h'})
     },
     logout (state) {
       state.loggedin = false
