@@ -79,7 +79,95 @@
         </v-stepper-content>
         <v-stepper-step step="2" v-bind:complete="e6 > 2">Job Details</v-stepper-step>
         <v-stepper-content step="2">
-          <v-card class="grey lighten-1 mb-5" height="200px"></v-card>
+          <template>
+            <form>
+              <v-flex xs12 class="employee-detail-overview">
+              <v-text-field
+                label="Job Title"
+                v-model="jobtitle"
+                @change="$v.select.$touch()"
+                @blur="$v.select.$touch()"
+                required
+              ></v-text-field>
+              </v-flex>
+              <v-flex xs12 class="employee-detail-overview">
+              <v-select
+              v-bind:items="locations"
+                v-model="location"
+                label="Location"
+                required
+              ></v-select>
+              </v-flex>
+              <v-flex xs12 class="employee-detail-overview">
+              <v-text-field
+              label="Department"
+              v-model="department"
+              @change="$v.select.$touch()"
+              @blur="$v.select.$touch()"
+              required
+              ></v-text-field>
+              </v-flex>
+              <v-flex xs12 class="employee-detail-overview">
+              <v-select
+              v-bind:items="employmenttype"
+              v-model="select"
+                label="Employment Type"
+                required
+              ></v-select>
+              </v-flex>
+              <v-flex xs12 class="employee-detail-overview">
+              <v-select
+              v-bind:items="manager"
+              v-model="select"
+                label="Manager"
+                required
+              ></v-select>
+            </v-flex>
+            <v-flex xs12 class="employee-detail-overview">
+            <v-select
+            v-bind:items="payrate"
+              v-model="select"
+              label="Pay Rate"
+              required
+            ></v-select>
+            </v-flex>
+            <v-flex xs12 class="employee-detail-overview">
+            <v-select
+            v-bind:items="paycurrency"
+              v-model="select"
+              label="Pay Currency"
+              required
+            ></v-select>
+            </v-flex>
+            <v-flex xs12 class="employee-detail-overview">
+            <v-select
+            v-bind:items="paytype"
+              v-model="select"
+              label="Pay Type"
+              required
+            ></v-select>
+            </v-flex>
+            <v-flex xs12 class="employee-detail-overview">
+            <v-select
+            v-bind:items="payfrequency"
+              v-model="select"
+              label="Pay Frequency"
+              required
+            ></v-select>
+            </v-flex>
+            <v-checkbox
+              label="Commision"
+              v-model="checkbox"
+              :error-messages="checkboxErrors"
+              @change="$v.checkbox.$touch()"
+              @blur="$v.checkbox.$touch()"
+              color="primary"
+              required
+              persistent-hint
+              hint="If this is checked, you recieve commision based work."
+            ></v-checkbox>
+            </form>
+          </template>
           <v-btn primary @click.native="e6 = 3">Continue</v-btn>
           <v-btn flat @click.native="e6 = 1">Go Back</v-btn>
         </v-stepper-content>
