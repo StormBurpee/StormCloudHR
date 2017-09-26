@@ -140,6 +140,20 @@ router.get("/user/register", function(request, response) {
 
 });
 
+router.get("/user/loggedin/:hash", function(request,response) {
+  if(request.params.hash) {
+    rclient.getAsync('stormcellhr_user_loggedin:'+request.params.hash).then(resp => {
+      if(resp != null) {
+        response.json({loggedin: true});
+      } else {
+        response.json({loggedin: false});
+      }
+    });
+  } else {
+    response.json({loggedin: false});
+  }
+});
+
 router.get("/user/loggedin", function(request, response) {
   if(request.cookies.user) {
     rclient.getAsync('stormcellhr_user_loggedin:'+request.cookies.user).then(resp => {
