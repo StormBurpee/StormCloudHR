@@ -52,6 +52,11 @@ export default {
       errormsg: ''
     }
   },
+  created () {
+    if (this.$store.state.loggedin) {
+      this.$router.push('/employees')
+    }
+  },
   methods: {
     login () {
       axios.post('http://stormcloudhr.com:3000/user/login', {email: this.email, password: this.password})
@@ -63,6 +68,7 @@ export default {
         } else {
           this.error = false
           this.errormsg = ''
+          this.$store.commit('login', user)
         }
       })
     }

@@ -19,7 +19,8 @@ const store = new Vuex.Store({
     loggedin: false,
     company_id: 0,
     hash: '',
-    myuser: {}
+    myuser: {},
+    loginchecked: false
   },
   mutations: {
     login (state, user) {
@@ -43,7 +44,14 @@ const store = new Vuex.Store({
       state.hash = Vue.cookie.get('userhash')
       axios.get('http://stormcloudhr.com:3000/user/loggedin/' + state.hash).then(resp => {
         state.loggedin = resp.data.loggedin
-        console.log(state)
+        if (state.loggedin === true) {
+          state.company_id = resp.data.user.employee.belongsto
+          state.myuser = resp.data.user
+          console.log(state)
+        } else {
+          router.push('/login')
+        }
+        state.loginchecked = true
       })
     }
   }

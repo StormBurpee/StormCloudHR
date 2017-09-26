@@ -1,7 +1,19 @@
 <template>
   <v-app id="app">
-    <hr-header></hr-header>
-    <router-view></router-view>
+    <div class="checked" v-if="this.$store.state.loginchecked == true">
+      <hr-header></hr-header>
+      <router-view></router-view>
+    </div>
+    <div v-else>
+      <div class="page-loader">
+        <div class="loader-header">
+          StormCloudHR
+        </div>
+        <div class="loader-spinner">
+          <v-progress-circular indeterminate class="primary--text"></v-progress-circular>
+        </div>
+      </div>
+    </div>
   </v-app>
 </template>
 
@@ -83,5 +95,20 @@ a {
 .input-group--text-field:not(.input-group--single-line).input-group--focused:not(.input-group--textarea) label, .input-group--text-field:not(.input-group--single-line).input-group--placeholder:not(.input-group--textarea) label {
     -webkit-transform: translate3d(0,-25px,0) scale(.75)!important;
     transform: translate3d(0,-25px,0) scale(.75)!important;
+}
+
+.page-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  & .loader-header {
+    font-weight: 300;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
 }
 </style>
