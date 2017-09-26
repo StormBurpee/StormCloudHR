@@ -12,6 +12,7 @@ class User extends Model {
     this.debug_mode = false;
   }
 
+  //TODO: ADD REDIS CACHE!
   getUserByEmail(email) {
     let thisUser = this;
     return new Promise((resolve, reject) => {
