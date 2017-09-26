@@ -25,6 +25,11 @@
           <v-flex xs12 class="employee-detail-overview login-btn">
             <v-btn class="blue white-font" block v-on:click="login()">Login</v-btn>
           </v-flex>
+          <v-flex xs12 class="employee-detail-overview" v-if="error">
+            <v-alert error value="true">
+              {{errormsg}}
+            </v-alert>
+          </v-flex>
         </v-layout>
       </div>
     </v-card>
@@ -42,14 +47,23 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      error: false,
+      errormsg: ''
     }
   },
   methods: {
     login () {
       axios.post('http://stormcloudhr.com:3000/user/login', {email: this.email, password: this.password})
       .then(response => {
-        console.log(response)
+        let user = response.data
+        if (user.error && user.error === 1) {
+          this.error = true
+          this.errormsg = user.error_msg
+        } else {
+          this.error = false
+          this.errormsg = ''
+        }
       })
     }
   }

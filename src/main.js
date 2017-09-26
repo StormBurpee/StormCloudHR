@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Vuex from 'vuex'
+var VueCookie = require('vue-cookie')
 import App from './App'
 import router from './router'
 import('../node_modules/vuetify/dist/vuetify.min.css')
@@ -10,27 +11,33 @@ import('../node_modules/vuetify/dist/vuetify.min.css')
 Vue.config.productionTip = false
 Vue.use(Vuetify)
 Vue.use(Vuex)
+Vue.use(VueCookie)
 
 const store = new Vuex.Store({
   state: {
-    loggedin: true,
-    company_id: 1
+    loggedin: false,
+    company_id: 0,
+    hash: ''
   },
   mutations: {
-    login (state) {
+    login (state, hash) {
       state.loggedin = true
+      state.hash = hash
+      Vue.cookie.set('userhash', hash, { expires: '1h'})
     },
     logout (state) {
       state.loggedin = false
     },
     setCompany (state, companyId) {
       state.company_id = companyId
+    },
+    checkLogin (state) {
+      state.hash = Vue.cookie.get('userhash')
     }
   }
 })
 
-store.commit('login')
-store.commit('setCompany', 1)
+store.commit('checkLogin')
 
 /* eslint-disable no-new */
 new Vue({

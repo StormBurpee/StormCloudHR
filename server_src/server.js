@@ -121,9 +121,9 @@ router.post("/user/login", function(request, response) {
         let key = "stormcellhr_user_loggedin:"+userHash;
         console.log("User logged in with hash, " + key);
         rclient.set(key, request.body.email);
-        rclient.expire(key, 30);
-        response.cookie("user", userHash, {maxAge: 30});
-        response.json({message: "User Login", user: resp}).send();
+        rclient.expire(key, 1*60*60);
+        response.cookie("user", userHash, {maxAge: 1*60*60});
+        response.json({message: "User Login", user: resp, hash: userHash}).send();
       }
     });
   } else {
