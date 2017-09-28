@@ -44,7 +44,7 @@ class User extends Model {
       let promises = [];
       let users = [];
       thisUser.db.query("SELECT * FROM users WHERE user_level < "+level, (err, rows) => {
-        if(rows.length > 0) {
+        if(rows && rows.length > 0) {
           for(let i = 0; i < rows.length; i++) {
             let user = rows[i];
             let actualUser = new User(thisUser.rclient, thisUser.db, thisUser.q, thisUser.passwordhash, thisUser.employeeRef);
