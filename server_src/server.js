@@ -143,6 +143,10 @@ router.get("/user/byemail/:email", function(request, response) {
   }
 });
 
+router.get("/users/managers/:company", function(request, response) {
+
+});
+
 router.get("/user/genpass/:password", function(request, response) {
   let pass = request.params.password;
   response.json({message: "Sneaky sneaky password generation", password: passwordhash.generate(pass)});
