@@ -144,7 +144,15 @@ router.get("/user/byemail/:email", function(request, response) {
 });
 
 router.get("/users/managers/:company", function(request, response) {
-
+  let employee = new Employee(rclient, db, Q);
+  let user = new User(rclient, db, Q, passwordhash, employee);
+  if(request.params.company) {
+    user.getUsersAboveLevel(4).then(resp => {
+      response.json({managers: resp});
+    })
+  } else {
+    response.json({managers: null});
+  }
 });
 
 router.get("/user/genpass/:password", function(request, response) {

@@ -34,6 +34,37 @@ class User extends Model {
     });
   }
 
+  getUsersByLevel(belongsto, level) {
+
+  }
+
+  getUsersAboveLevel(belongsto, level) {
+    let thisUser = this;
+    return new Promise((resolve, reject) => {
+      let promises = [];
+      let users = [];
+      thisUser.db.query("SELECT * FROM users WHERE user_level < "+level, (err, rows) => {
+        if(rows.length > 0) {
+          for(let i = 0; i < rows.length; i++) {
+            let user = rows[i];
+            let actualUser = new User(thisUser.rclient, thisUser.db, thisUser.q, thisUser.passwordhash, thisUser.employeeRef);
+            actualUser.email = user.email;
+            actualUser.userlevel = user.user_level;
+            promises.push(thisUser.employeeRef.getEmployee(user.employee_id).then(resp => {
+              actualUser.employee = resp[0];
+              if(resp[0].belongsto == belongsto) {
+                users.push(actualUser);
+              }
+            }));
+          }
+        }
+        employee.q.all(promises).done(function(values) {
+          resolve(users);
+        });
+      });
+    });
+  }
+
   login(email, password) {
     let thisUser = this;
     return new Promise((resolve, reject) => {
