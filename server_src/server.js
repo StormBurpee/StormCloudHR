@@ -182,6 +182,19 @@ router.get("/user/loggedin/:hash", function(request,response) {
   }
 });
 
+router.get("/user/refreshexpiry/:hash", function(request, response) {
+  let hash = request.params.hash;
+  rclient.getAsync("stormcellhr_user_loggedin:"+hash).then(resp => {
+    if(resp) {
+      rclient.set("stormcellhr_user_loggedin:"+hash, resp);
+      rclient.expire(key, 1*60*60);
+      response.json({user: resp, message: "Refreshed Session For 60 Minutes."});
+    } else {
+      response.json({error: 1, message: "User is not logged in."});
+    }
+  });
+});
+
 router.get("/user/loggedin", function(request, response) {
   if(request.cookies.user) {
     rclient.getAsync('stormcellhr_user_loggedin:'+request.cookies.user).then(resp => {

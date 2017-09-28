@@ -124,7 +124,14 @@
                 required
               ></v-select>
             </v-flex>
-            <v-flex xs4></v-flex>
+            <v-flex xs4 class="employee-detail-overview">
+              <v-select
+              v-bind:items="roles"
+              v-model="select"
+                label="Employee Role"
+                required
+              ></v-select>
+            </v-flex>
             <v-flex xs4 class="employee-detail-overview">
               <v-text-field
                 label="Pay Rate"
@@ -213,6 +220,7 @@ export default {
       locations: [],
       employment_types: ['Full Time', 'Part Time', 'Casual', 'Temp', 'Intern', 'Volunteer', 'Contractor'],
       managers: [],
+      roles: ['Owner', 'Administrator', 'Area Manager', 'Manager', 'Employee'],
       currencies: ['CAD', 'USD', 'EUR', 'GBP', 'AUD', 'JPY', 'BYR', 'AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BRL', 'BSD', 'BTN', 'BWP', 'BYN', 'BZD', 'CDF', 'CHF', 'CLF', 'CLP', 'CNY', 'COP', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EGP', 'ERN', 'ETB', 'FJD', 'FKP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LTL', 'LVL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR', 'MVR', 'MWK', 'MXN', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SKK', 'SLL', 'SOS', 'SRD', 'SSP', 'STD', 'SVC', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'UYU', 'UZS', 'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XDR', 'XOF', 'XPD', 'XPF', 'XPT', 'xts', 'YER', 'ZAR', 'ZMK', 'ZMW', 'BTC', 'JEP', 'GGP', 'IMP', 'XFU', 'EEK', 'GHS', 'MTL', 'TMM', 'JPY', 'ZWD', 'ZWL', 'ZWN', 'ZWR'],
       pay_types: ['Year', 'Quarter', 'Month', 'Fortnight', 'Week', 'Day', 'Hour'],
       pay_frequency: ['Annually', 'Monthly', 'Semimonthly', 'Biweekly', 'Weekly', 'Daily']
@@ -223,6 +231,12 @@ export default {
       for (let i = 0; i < resp.data.locations.length; i++) {
         let location = resp.data.locations[i]
         this.locations.push(location.location_name)
+      }
+    })
+    axios.get('http://stormcloudhr.com:3000/users/managers/' + this.$store.state.company_id).then(resp => {
+      for (let i = 0; i < resp.data.managers.length; i++) {
+        let manager = resp.data.managers[i]
+        this.managers.push(manager.employee.first + ' ' + manager.employee.last)
       }
     })
   }
