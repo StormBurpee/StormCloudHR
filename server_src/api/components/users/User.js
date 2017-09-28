@@ -58,7 +58,7 @@ class User extends Model {
             }));
           }
         }
-        employee.q.all(promises).done(function(values) {
+        thisUser.q.all(promises).done(function(values) {
           resolve(users);
         });
       });
