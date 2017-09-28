@@ -29,6 +29,11 @@ export default {
   },
   components: {
     'hr-header': Header
+  },
+  watch: {
+    '$route' (to, from) {
+      this.$store.commit('refreshSession')
+    }
   }
 }
 </script>

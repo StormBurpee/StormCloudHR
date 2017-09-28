@@ -52,6 +52,17 @@ const store = new Vuex.Store({
         }
         state.loginchecked = true
       })
+    },
+    refreshSession (state) {
+      if (state.loggedin) {
+        axios.get('http://stormcloudhr.com:3000/user/refreshexpiry/' + state.hash).then(resp => {
+          if (resp && !resp.error) {
+            Vue.cookie.set('userhash', state.hash, {expires: '1h'})
+          } else {
+            console.log('Error, user not logged in.')
+          }
+        })
+      }
     }
   }
 })
