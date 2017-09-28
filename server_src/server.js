@@ -186,6 +186,7 @@ router.get("/user/refreshexpiry/:hash", function(request, response) {
   let hash = request.params.hash;
   rclient.getAsync("stormcellhr_user_loggedin:"+hash).then(resp => {
     if(resp) {
+      console.log(resp + " has refreshed their logged in session.");
       rclient.set("stormcellhr_user_loggedin:"+hash, resp);
       rclient.expire("stormcellhr_user_loggedin:"+hash, 1*60*60);
       response.json({user: resp, message: "Refreshed Session For 60 Minutes."});
