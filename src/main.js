@@ -54,7 +54,7 @@ const store = new Vuex.Store({
       })
     },
     refreshSession (state) {
-      if (state.loggedin) {
+      if (state.loggedin && Vue.cookie.get('userhash')) {
         axios.get('http://stormcloudhr.com:3000/user/refreshexpiry/' + state.hash).then(resp => {
           if (resp && !resp.error) {
             Vue.cookie.set('userhash', state.hash, {expires: '1h'})
