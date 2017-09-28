@@ -10,11 +10,18 @@
         <li class="page-link"><router-link to="#">Reports</router-link></li>
       </ul>
       <ul class="pull-right">
-        <li class="page-link"><router-link to="#">My Inbox</router-link></li>
+        <li class="page-link">
+          <router-link to="#">
+            <v-avatar class="white" style="margin-right: 5px" size="24px">
+              <span class="black--text">{{inboxcount}}</span>
+            </v-avatar>
+            My Inbox
+          </router-link>
+        </li>
         <li class="page-link">
           <v-menu bottom right>
               <v-chip outline slot="activator">
-                <v-avatar class="teal">{{this.$store.state.myuser.employee.first.slice(0, 1)}}{{this.$store.state.myuser.employee.last.slice(0,1)}}</v-avatar>
+                <v-avatar class="blue">{{this.$store.state.myuser.employee.first.slice(0, 1)}}{{this.$store.state.myuser.employee.last.slice(0,1)}}</v-avatar>
                 {{this.$store.state.myuser.employee.first}} {{this.$store.state.myuser.employee.last}}
               </v-chip>
               <v-list class="dropdown-list">
@@ -46,7 +53,8 @@ export default {
   name: 'hr-header',
   data () {
     return {
-      myurl: '/employee/' + this.$store.state.myuser.employee.id
+      myurl: '/employee/' + this.$store.state.myuser.employee.id,
+      inboxcount: 0
     }
   },
   watch: {
